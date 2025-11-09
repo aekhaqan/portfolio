@@ -1,0 +1,30 @@
+/* Game.css - Responsive styles for Find My Number game */
+
+/* Ensure the game container fits viewport height */
+section {
+  max-height: 100vh;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  /* Stack stats vertically on smaller screens */
+  .stats-container {
+    flex-direction: column;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  /* Even smaller cards on mobile */
+  .game-card {
+    font-size: 1rem;
+  }
+}
