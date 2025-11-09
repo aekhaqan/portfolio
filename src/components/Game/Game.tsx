@@ -15,7 +15,7 @@ type GameMode = 'classic' | 'speedrun';
 
 const PHONE_NUMBER = "07488242372";
 const MAX_ATTEMPTS_CLASSIC = 15;
-const SPEED_RUN_TIME = 30;
+const SPEED_RUN_TIME = 20;
 
 const shuffleArray = <T extends any>(array: T[]): T[] => {
   const newArray = [...array];
@@ -294,7 +294,7 @@ export default function FindMyNumberGame() {
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-6">
-      <div className="relative bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800 rounded-3xl p-5 shadow-xl">
+      <div className="relative bg-white dark:bg-primary border border-neutral-200 dark:border-neutral-800 rounded-3xl p-5 shadow-xl">
         
         {/* Top Section - Title and Mode Buttons */}
         <div className="flex items-center justify-between mb-4">
@@ -329,7 +329,7 @@ export default function FindMyNumberGame() {
           <p className="text-xs text-neutral-600 dark:text-neutral-400 text-center leading-relaxed">
             {currentMode === 'classic' 
               ? '🟢 Green = correct position · 🟠 Orange = wrong position (re-click when ready) · 🔴 Red = not in number'
-              : '⚡ Click numbers in sequence! Cards shuffle every 3 seconds. You have 30 seconds!'}
+              : '⚡ Click numbers in sequence! Cards shuffle every 3 seconds. You have 20 seconds!'}
           </p>
         </div>
 
@@ -338,9 +338,6 @@ export default function FindMyNumberGame() {
           
           {/* Phone Display */}
           <div className="p-2 bg-neutral-50 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 text-center">
-            <div className="text-[10px] text-neutral-400 uppercase tracking-wider mb-2 text-center">
-              Phone Number Progress
-            </div>
             <div className="text-2xl font-mono tracking-widest text-white text-center">
               {renderPhoneDisplay()}
             </div>
@@ -395,7 +392,7 @@ export default function FindMyNumberGame() {
                     key={index}
                     onClick={() => cardClick(index, num)}
                     disabled={state === 'correct'}
-                    className={`aspect-square rounded-xl font-bold text-lg transition-all duration-300 ${
+                    className={`aspect-square rounded-xl font-bold text-3xl transition-all duration-300 ${
                       !isFlipped
                         ? 'bg-neutral-100 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-600 hover:bg-neutral-200 dark:hover:bg-neutral-800'
                         : state === 'correct'
@@ -413,7 +410,7 @@ export default function FindMyNumberGame() {
               })}
             </div>
           ) : (
-            <div className="grid grid-cols-6 gap-2 max-w-4xl mx-auto">
+            <div className="grid grid-cols-6 gap-2 max-w-3xl mx-auto">
               {Array.from({ length: 18 }, (_, index) => {
                 if (index >= speedCardNumbers.length) {
                   // Empty slot
@@ -426,7 +423,7 @@ export default function FindMyNumberGame() {
                   <button
                     key={index}
                     onClick={() => speedCardClick(num, index)}
-                    className={`aspect-square rounded-xl font-bold text-lg bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all ${
+                    className={`aspect-square rounded-xl font-bold text-3xl bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all ${
                       highlightedCard === index ? 'scale-95' : 'hover:scale-105'
                     }`}
                   >

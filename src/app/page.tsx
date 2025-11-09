@@ -4,12 +4,44 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  Database,
+  BarChart3,
+  FileText,
+  Zap,
+  Mail,
+  FileSpreadsheet,
+  Workflow,
+  Brain,
+  Code,
+  TrendingUp,
+  Gamepad2,
+} from "lucide-react";
 import ContactForm from "@/components/Form/form";
 import FindMyNumberGame from "@/components/Game/Game";
 
+// Tech icon mapping
+const TechIcon = ({ name }: { name: string }) => {
+  const icons: Record<string, React.ReactElement> = {
+    "Power BI": <BarChart3 className="h-4 w-4" />,
+    ETL: <Database className="h-4 w-4" />,
+    "Data Modeling": <TrendingUp className="h-4 w-4" />,
+    DAX: <Code className="h-4 w-4" />,
+    "Business Intelligence": <BarChart3 className="h-4 w-4" />,
+    "GPT-4": <Brain className="h-4 w-4" />,
+    "Power Automate": <Workflow className="h-4 w-4" />,
+    "AI Builder": <Brain className="h-4 w-4" />,
+    Dataverse: <Database className="h-4 w-4" />,
+    "Low-Code": <Zap className="h-4 w-4" />,
+    "Workflow Automation": <Workflow className="h-4 w-4" />,
+  };
+  return icons[name] || <Zap className="h-4 w-4" />;
+};
+
 export default function Home() {
   const [displayText, setDisplayText] = useState("");
-  const text = "Hello, I'm Atif";
+  const [selectedWork, setSelectedWork] = useState<string | null>(null);
+  const text = "Atif Khan";
   const typingSpeed = 100;
 
   useEffect(() => {
@@ -22,161 +54,296 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const projects = [
+  const capabilities = [
     {
-      id: "ecommerce-etl",
-      title: "E-Commerce ETL + BI Report",
-      subtitle: "End-to-End ETL + Power BI Dashboard",
-      desc: "Built a 4-page business performance report with full data cleaning, modelling, and transformation pipeline.",
-      images: [
-        "/ecommerce1.png",
-        "/ecommerce2.png",
-        "/ecommerce3.png",
-        "/ecommerce4.png",
-        "/ecommerce5.png",
-      ],
+      id: "etl",
+      icon: <Database className="h-5 w-5" />,
+      title: "ETL Pipelines",
+      desc: "Power Query transformations, data modeling",
     },
     {
-      id: "bobs-bi",
-      title: "Bob’s Burger Analysis",
-      subtitle: "Business Intelligence Case Study",
-      desc: "Minimal dataset, maximum insight — identified loss trends and performance leaks with only 5 input columns.",
-      image: "/bobs.png",
+      id: "bi",
+      icon: <BarChart3 className="h-5 w-5" />,
+      title: "Power BI",
+      desc: "DAX measures, star schema design, dashboards",
     },
     {
-      id: "ai-automation",
-      title: "AI Document Workflow",
-      subtitle: "GPT-4 + Intelligent Automation",
-      desc: "End-to-end AI contract analysis pipeline with metadata writing, manager approval routing, and Power BI sync.",
-      image: "/ai-automation.png",
+      id: "ai",
+      icon: <Brain className="h-5 w-5" />,
+      title: "AI Automation",
+      desc: "GPT-4 integration, document intelligence",
     },
     {
       id: "lowcode",
-      title: "Procurement Automation",
-      subtitle: "Power Automate + Dataverse",
-      desc: "Dynamic approval routing, budget validation, and invoice generation using Microsoft Power Platform.",
-      image: "/lowcode.png",
+      icon: <Zap className="h-5 w-5" />,
+      title: "Low-Code Automation",
+      desc: "Power Automate workflows, Dataverse",
+    },
+    {
+      id: "custom",
+      icon: <Gamepad2 className="h-5 w-5" />,
+      title: "Custom Solutions",
+      desc: "Next.js websites, interactive games",
     },
   ];
 
-  return (
-    <main className="min-h-screen flex flex-col items-center relative overflow-hidden">
-      {/* Subtle background animation */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-100 dark:via-neutral-900 to-transparent animate-pulse-slow"></div>
+  const skills = [
+    { name: "Power BI", icon: <BarChart3 className="h-5 w-5" /> },
+    { name: "Power Automate", icon: <Workflow className="h-5 w-5" /> },
+    { name: "Power Query", icon: <Database className="h-5 w-5" /> },
+    { name: "DAX", icon: <Code className="h-5 w-5" /> },
+    { name: "SQL", icon: <Database className="h-5 w-5" /> },
+    { name: "Python", icon: <Code className="h-5 w-5" /> },
+    { name: "React", icon: <Code className="h-5 w-5" /> },
+    { name: "Machine Learning", icon: <Brain className="h-5 w-5" /> },
+    { name: "Dataverse", icon: <Database className="h-5 w-5" /> },
+    { name: "SharePoint", icon: <FileText className="h-5 w-5" /> },
+    { name: "AI Builder", icon: <Brain className="h-5 w-5" /> },
+    { name: "Excel", icon: <FileSpreadsheet className="h-5 w-5" /> },
+  ];
 
-      {/* Hero */}
-      <section className="relative z-10 text-center px-6 pt-32 pb-24">
+  const automationExamples = [
+    "SharePoint capacity monitoring with automated alerts",
+    "Government tender response system using AI document analysis",
+    "Dynamics 365 integration with third-party platforms via HTTP triggers",
+    "Invoice generation workflows with approval routing and budget validation",
+    "Contract metadata extraction and manager approval routing",
+    "Resource allocation optimization matching skills against project requirements",
+    "Timesheet anomaly detection flagging overwork and budget overruns",
+  ];
+
+  const projects = [
+    {
+      id: "ecommerce-etl",
+      category: "etl",
+      title: "E-Commerce Intelligence Platform",
+      description:
+        "End-to-end data pipeline transforming fragmented Excel data into enterprise-grade analytics. Star schema design with 30+ DAX measures.",
+      image: "/ecommerce1.png",
+      tags: ["Power BI", "ETL", "Data Modeling"],
+    },
+    {
+      id: "bobs-bi",
+      category: "bi",
+      title: "Restaurant Operations Analysis",
+      description:
+        "Extracted actionable insights from minimal data—identified £5,200/month revenue opportunity and operational bottlenecks.",
+      image: "/bobs.png",
+      tags: ["Power BI", "DAX", "Business Intelligence"],
+    },
+    {
+      id: "ai-automation",
+      category: "ai",
+      title: "AI Contract Intelligence",
+      description:
+        "Automated contract review with AI document intelligence, skill matching, and resource optimization. Same-day intake vs 2–3 days manual.",
+      image: "/ai-automation.png",
+      tags: ["GPT-4", "Power Automate", "AI Builder"],
+    },
+    {
+      id: "lowcode",
+      category: "lowcode",
+      title: "Procurement Automation",
+      description:
+        "Dynamic approval routing with real-time budget tracking. Approval times reduced from 7 days to 1–2 days.",
+      image: "/lowcode.png",
+      tags: ["Power Automate", "Dataverse", "Low-Code"],
+    },
+  ];
+
+  const filteredProjects =
+    selectedWork === "custom"
+      ? []
+      : selectedWork
+      ? projects.filter((p) => p.category === selectedWork)
+      : projects;
+
+  return (
+    <main className="max-w-6xl mx-auto px-6 py-20 space-y-20">
+      {/* Hero Section */}
+      <section className="min-h-[50vh] flex flex-col justify-center space-y-8">
         <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="text-5xl md:text-7xl font-mono font-bold tracking-tight text-black dark:text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-7xl md:text-8xl lg:text-9xl font-bold text-primary leading-none"
         >
           {displayText}
           <motion.span
             animate={{ opacity: [0, 1, 0] }}
             transition={{ repeat: Infinity, duration: 1 }}
-            className="inline-block w-4 bg-black dark:bg-white ml-1"
-          ></motion.span>
+            className="inline-block w-2 h-20 md:h-24 lg:h-32 bg-[var(--accent)] ml-2 align-middle"
+          />
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.8, y: 0 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="mt-6 text-lg md:text-xl font-light text-neutral-600 dark:text-neutral-300"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="space-y-2"
         >
-          Data Analyst · Developer · Automator
-        </motion.p>
+          <p className="text-2xl md:text-3xl text-secondary max-w-3xl">
+            Consultant & Automation Specialist
+          </p>
+          <p className="text-lg text-tertiary max-w-2xl">
+            I like to learn, build, and solve problems.
+          </p>
+        </motion.div>
       </section>
 
-      {/* Projects Section */}
-      <section className="w-full max-w-6xl px-6 pb-32 space-y-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-black dark:text-white">
-          Featured Projects
-        </h2>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              href={`/${project.id}`}
-              className="group relative overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-lg transition-all duration-300"
-            >
-              {/* Image Carousel for Project 1 */}
-              {project.images ? (
-                <div className="relative w-full h-64 overflow-hidden">
-                  {project.images.map((src, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute inset-0"
-                      initial={{ opacity: 0 }}
-                      animate={{
-                        opacity: [0, 1, 1, 0],
-                        zIndex: [0, 1, 1, 0],
-                      }}
-                      transition={{
-                        duration: 12,
-                        times: [0, 0.1, 0.9, 1],
-                        repeat: Infinity,
-                        repeatDelay: 0,
-                        delay: i * 3, // each image shows 3s apart
-                      }}
-                    >
-                      <Image
-                        src={src}
-                        alt={`${project.title} preview ${i + 1}`}
-                        width={800}
-                        height={400}
-                        className="object-cover w-full h-full"
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <Image
-                  src={project.image || ""}
-                  alt={project.title}
-                  width={800}
-                  height={400}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              )}
-
-              {/* Text Overlay */}
-              <div className="p-6 space-y-2 bg-white/80 dark:bg-black/60 backdrop-blur-md">
-                <h3 className="text-2xl font-semibold text-black dark:text-white">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 uppercase tracking-wide">
-                  {project.subtitle}
-                </p>
-                <p className="text-neutral-700 dark:text-neutral-300 text-sm leading-relaxed">
-                  {project.desc}
-                </p>
+      {/* Automation + Skills */}
+      <section className="grid md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 p-6 rounded-xl border border-custom bg-secondary space-y-4">
+          <h2 className="text-2xl font-bold text-primary">
+            Things I've Automated
+          </h2>
+          <div className="space-y-2">
+            {automationExamples.map((example, i) => (
+              <div key={i} className="flex items-start gap-3 text-secondary text-sm">
+                <span className="text-[var(--accent)] mt-1 flex-shrink-0">•</span>
+                <span>{example}</span>
               </div>
-            </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="md:col-span-1 p-6 rounded-xl border border-custom bg-secondary space-y-4">
+          <h2 className="text-2xl font-bold text-primary">Skills & Tools</h2>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill) => (
+              <div
+                key={skill.name}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-tertiary border border-custom"
+              >
+                <span className="text-[var(--accent)]">{skill.icon}</span>
+                <span className="text-xs font-medium text-primary">
+                  {skill.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Selected Work Section */}
+      <section className="space-y-3">
+        <div className="space-y-3">
+          <h2 className="text-3xl font-bold text-primary">Selected Work</h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {capabilities.map((cap) => (
+            <button
+              key={cap.id}
+              onClick={() =>
+                setSelectedWork(selectedWork === cap.id ? null : cap.id)
+              }
+              className={`p-4 rounded-xl border transition-all text-left ${
+                selectedWork === cap.id
+                  ? "bg-[var(--accent)] border-[var(--accent)] shadow-lg"
+                  : "bg-secondary border-custom hover:border-[var(--accent)]"
+              }`}
+            >
+              <div
+                className={`mb-2 ${
+                  selectedWork === cap.id ? "text-white" : "text-[var(--accent)]"
+                }`}
+              >
+                {cap.icon}
+              </div>
+              <h3
+                className={`font-semibold text-sm mb-1 ${
+                  selectedWork === cap.id ? "text-white" : "text-primary"
+                }`}
+              >
+                {cap.title}
+              </h3>
+              <p
+                className={`text-xs ${
+                  selectedWork === cap.id ? "text-white/80" : "text-tertiary"
+                }`}
+              >
+                {cap.desc}
+              </p>
+            </button>
+            
           ))}
         </div>
+          <p className="text-secondary">
+            These projects showcase different skills and approaches, each chosen
+            for its technical challenge.
+          </p>
       </section>
 
-       <FindMyNumberGame />
+      {/* Projects */}
+      <section className="flex flex-col gap-12">
+        {filteredProjects.map((project) => (
+          <Link key={project.id} href={`/${project.id}`} className="group block">
+            <div className="flex flex-col md:flex-row gap-8 items-stretch">
+              <div className="w-full md:w-5/12 relative overflow-hidden rounded-xl border border-custom flex-shrink-0">
+                <div className="aspect-video relative bg-secondary">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              </div>
 
-      {/* Contact */}
-      <section id="contact" className="w-full max-w-xl px-6 pb-24">
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-black dark:text-white mb-2">
-            Get in Touch
-          </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-            Drop me a message — I’ll respond soon.
-          </p>
+              <div className="w-full md:w-7/12 flex flex-col justify-between space-y-4">
+                <div>
+                  <h3 className="text-3xl font-bold text-primary group-hover:text-[var(--accent)] transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-secondary mt-4 leading-relaxed text-md">
+                    {project.description}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {project.tags.map((tag) => (
+                    <div
+                      key={tag}
+                      className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-tertiary text-secondary rounded-lg"
+                    >
+                      <TechIcon name={tag} />
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </section>
+
+      {/* Custom Solution Info (above game) */}
+      <section className="p-6 rounded-xl border border-custom bg-secondary text-left">
+        <p className="text-lg text-secondary">
+          <span className="">Custom Solution:</span>{" "}
+          This portfolio itself is a Next.js website built with React, Tailwind, and Framer Motion.  
+          Or the game below!
+        </p>
+      </section>
+
+      {/* Game */}
+      <FindMyNumberGame />
+
+      {/* Contact Section */}
+      <section id="contact" className="py-12">
+        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
+          <div className="md:w-1/3 space-y-2">
+            <h3 className="text-2xl font-semibold text-primary">Get in Touch</h3>
+            <p className="text-sm text-tertiary flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              <span>I’ll respond soon.</span>
+            </p>
+          </div>
+
+          <div className="flex-1 p-6 rounded-xl border border-custom bg-secondary shadow-glass w-full">
+            <ContactForm />
+          </div>
         </div>
-        <div className="p-4 rounded-2xl border border-neutral-300 dark:border-neutral-700 shadow-sm backdrop-blur-md bg-white/40 dark:bg-black/40">
-          <ContactForm />
-        </div>
-
-
       </section>
     </main>
   );

@@ -52,14 +52,14 @@ export default function ContactForm() {
           type="text"
           name="name"
           required
-          className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white rounded-lg focus:outline-none transition-all"
+          className="w-full px-4 py-3 bg-white dark:bg-primary border-2 border-black dark:border-white rounded-lg focus:outline-none transition-all"
           placeholder="Name"
         />
         <input
           type="email"
           name="email"
           required
-          className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white rounded-lg focus:outline-none transition-all"
+          className="w-full px-4 py-3 bg-white dark:bg-primary border-2 border-black dark:border-white rounded-lg focus:outline-none transition-all"
           placeholder="Email"
         />
       </div>
@@ -68,14 +68,14 @@ export default function ContactForm() {
         name="message"
         required
         rows={4}
-        className="w-full px-4 py-3 bg-white dark:bg-black border-2 border-black dark:border-white rounded-lg focus:outline-none transition-all resize-none"
+        className="w-full px-4 py-3 bg-white dark:bg-primary border-2 border-black dark:border-white rounded-lg focus:outline-none transition-all resize-none"
         placeholder="Message"
       />
 
       <button
         type="submit"
         disabled={result === "Sending..."}
-        className="w-full px-8 py-3 bg-black dark:bg-white text-white dark:text-black font-medium rounded-lg hover:opacity-80 transition-all disabled:opacity-50"
+        className="w-full px-8 py-3 bg-primary dark:bg-white text-white dark:text-black font-medium rounded-lg hover:opacity-80 transition-all disabled:opacity-50"
       >
         {result === "Sending..." ? "Sending..." : "Send"}
       </button>

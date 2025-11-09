@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, TrendingUp, Layers } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,10 +19,19 @@ export default function BobsBurgers() {
   const current = media[index];
 
   return (
-    <main className="min-h-screen px-6 md:px-12 lg:px-24 py-16 space-y-20">
-      {/* HERO MEDIA CAROUSEL */}
-      <section className="relative max-w-5xl mx-auto">
-        <div className="relative rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700 shadow-md">
+    <main className="max-w-5xl mx-auto px-6 py-12 space-y-12">
+      {/* Back Button */}
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors"
+      >
+        <ChevronLeft className="h-4 w-4" />
+        Back to portfolio
+      </Link>
+
+      {/* Hero Media */}
+      <section className="relative rounded-xl overflow-hidden border border-custom">
+        <div className="aspect-video relative bg-secondary">
           {current.type === "video" ? (
             <video
               key={current.src}
@@ -31,189 +40,253 @@ export default function BobsBurgers() {
               loop
               muted
               playsInline
-              className="w-full h-[80vh] object-contain bg-neutral-100 dark:bg-neutral-900"
+              className="w-full h-full object-contain"
             />
           ) : (
             <Image
               key={current.src}
               src={current.src}
-              alt={`Bob's Burgers analysis ${index + 1}`}
-              width={1600}
-              height={900}
-              className="w-full h-[80vh] object-contain bg-neutral-100 dark:bg-neutral-900"
+              alt={`Restaurant analysis ${index + 1}`}
+              fill
+              className="object-contain"
             />
-          )}
-
-          {/* Navigation Arrows */}
-          {media.length > 1 && (
-            <>
-              <button
-                onClick={prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/70 dark:bg-black/50 backdrop-blur-md hover:scale-110 transition"
-              >
-                <ArrowLeft className="h-5 w-5 text-black dark:text-white" />
-              </button>
-              <button
-                onClick={next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/70 dark:bg-black/50 backdrop-blur-md hover:scale-110 transition"
-              >
-                <ArrowRight className="h-5 w-5 text-black dark:text-white" />
-              </button>
-            </>
           )}
         </div>
 
-        <div className="text-center mt-3 text-sm text-neutral-500 dark:text-neutral-400">
-          {index + 1}/{media.length}
+        {/* Navigation */}
+        <button
+          onClick={prev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-[var(--bg-primary)] border border-custom hover:bg-secondary transition"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-[var(--bg-primary)] border border-custom hover:bg-secondary transition"
+        >
+          <ArrowRight className="h-5 w-5" />
+        </button>
+
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[var(--bg-primary)] border border-custom text-sm text-secondary">
+          {index + 1} / {media.length}
         </div>
       </section>
 
-      {/* INTRO */}
-      <section className="max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">
-          B.O.B. Burgers: Operations Analysis
+      {/* Header */}
+      <section className="space-y-4">
+        <div className="flex flex-wrap gap-2">
+          {["Power BI", "DAX", "Operations Analysis", "Minimal Data"].map((tag) => (
+            <span key={tag} className="px-3 py-1 text-xs font-medium bg-tertiary text-secondary rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+        
+        <h1 className="text-4xl md:text-5xl font-bold text-primary">
+          Restaurant Operations Analysis
         </h1>
-        <p className="text-lg text-neutral-600 dark:text-neutral-400">
-          Finding revenue opportunities in a multi-branch restaurant chain with minimal data inputs.
+        
+        <p className="text-xl text-secondary">
+          Found £5,200/month revenue opportunity and identified operational bottlenecks from just 5 columns of data.
         </p>
       </section>
 
-      {/* WHY THIS PROJECT */}
-      <section className="max-w-5xl mx-auto">
-        <h2 className="text-2xl font-bold text-black dark:text-white mb-8">
-          Why This Project Was Interesting
-        </h2>
+      {/* The Brief */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-bold text-primary">The Brief</h2>
         
-        <div className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="p-6 border-l-4 border-amber-500 bg-neutral-50 dark:bg-neutral-900">
-              <h3 className="font-semibold text-black dark:text-white mb-3">
-                Client brief
-              </h3>
-              <p className="text-neutral-700 dark:text-neutral-300">
-                "Here's our excel order data, find us something useful."
-              </p>
-              <p className="text-neutral-700 dark:text-neutral-300 mt-4">
-                That's it.
-              </p>
-            </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-6 rounded-xl bg-secondary border border-custom">
+            <h3 className="font-semibold text-primary mb-2">Client Request</h3>
+            <p className="text-secondary">
+              "Here's our Excel order data. Find us something useful."
+            </p>
+            <p className="text-sm text-tertiary mt-2">That was the entire brief.</p>
+          </div>
 
-            <div className="p-6 border-l-4 border-blue-500 bg-neutral-50 dark:bg-neutral-900">
-              <h3 className="font-semibold text-black dark:text-white mb-3">
-                The Opposite Problem
+          <div className="p-6 rounded-xl bg-secondary border border-custom">
+            <h3 className="font-semibold text-primary mb-2">The Constraint</h3>
+            <p className="text-secondary">
+              Unlike the e-commerce project with 74K orders, this was 5 columns. 
+              Challenge: Can you extract meaningful insights from minimal data?
+            </p>
+          </div>
+        </div>
+
+        <p className="text-sm text-tertiary italic">
+          Fictional scenario for portfolio, but modeled after real restaurant operational challenges.
+        </p>
+      </section>
+
+      {/* What I Found */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-bold text-primary">Key Findings</h2>
+        
+        <div className="space-y-4">
+          <div className="p-6 rounded-xl border-l-4 border-red-500 bg-secondary">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <h3 className="font-semibold text-lg text-primary">
+                Walthamstow Problem
               </h3>
-              <p className="text-neutral-700 dark:text-neutral-300">
-                Unlike the e-commerce project with 74K orders, this was 5 columns worth of data. The challenge wasn't cleaning messy data—it was: can you extract meaningful insights from limited data? Turns out, yeah.
+              <span className="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-medium">
+                Critical
+              </span>
+            </div>
+            <p className="text-secondary mb-3">
+              49-minute average delivery time with lowest order value (£46 avg). Branch is geographically 
+              isolated, causing cross-borough deliveries that kill margins.
+            </p>
+            <div className="p-3 rounded bg-tertiary">
+              <p className="text-sm text-secondary">
+                <strong className="text-primary">Recommendation:</strong> Close or relocate. Current location 
+                hemorrhaging money on delivery costs.
               </p>
             </div>
           </div>
 
-          <div className="p-6 border-l-4 border-green-500 bg-neutral-50 dark:bg-neutral-900">
-            <p className="text-neutral-700 dark:text-neutral-300">
-              <strong>What made it fun:</strong> Built measures to spot patterns (delivery times, driver efficiency, order clustering), created visuals that made the problems obvious, and came up with actionable recommendations.
+          <div className="p-6 rounded-xl border-l-4 border-amber-500 bg-secondary">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <h3 className="font-semibold text-lg text-primary">
+                Peak Hour Chaos
+              </h3>
+              <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-medium">
+                Operational
+              </span>
+            </div>
+            <p className="text-secondary mb-3">
+              7-8pm sees 350 orders with only 5 drivers at Westminster. 50-minute delivery times during 
+              peak vs 28 minutes off-peak.
             </p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-3">
-              Note: Fictional scenario for portfolio purposes, but modeled after real restaurant operational challenges.
+            <div className="p-3 rounded bg-tertiary">
+              <p className="text-sm text-secondary">
+                <strong className="text-primary">Recommendation:</strong> Dynamic pricing during peak (+£2-3 
+                delivery fee) or reallocate drivers from slower branches.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-6 rounded-xl border-l-4 border-green-500 bg-secondary">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <h3 className="font-semibold text-lg text-primary">
+                Kensington Opportunity
+              </h3>
+              <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-medium">
+                Revenue
+              </span>
+            </div>
+            <p className="text-secondary mb-3">
+              Highest order value (£50 avg) with strong delivery metrics. Currently limited radius means 
+              leaving money on the table.
             </p>
+            <div className="p-3 rounded bg-tertiary">
+              <p className="text-sm text-secondary">
+                <strong className="text-primary">Recommendation:</strong> Expand delivery zone by 4km. 
+                Estimated +£5,200/month revenue based on current order density.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* WHAT I FOUND */}
-      <section className="max-w-4xl mx-auto space-y-6">
-        <h2 className="text-2xl font-bold text-black dark:text-white">
-          What I Found
-        </h2>
+      {/* Technical Approach */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-bold text-primary">Technical Approach</h2>
         
-        <div className="space-y-8">
-          <div className="border-l-4 border-red-500 pl-6">
-            <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
-              Walthamstow Problem
-            </h3>
-            <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-              49-minute average delivery time with lowest order value (£46 avg). Branch is geographically isolated, causing cross-borough deliveries.
-            </p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              → Recommendation: Close or relocate
-            </p>
-          </div>
-
-          <div className="border-l-4 border-amber-500 pl-6">
-            <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
-              Peak Hour Chaos
-            </h3>
-            <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-              7-8pm sees 350 orders with only 5 drivers at Westminster. 50-minute delivery times during peak vs. 28 minutes off-peak.
-            </p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              → Recommendation: Dynamic pricing or driver reallocation
-            </p>
-          </div>
-
-          <div className="border-l-4 border-green-500 pl-6">
-            <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
-              Kensington Opportunity
-            </h3>
-            <p className="text-neutral-700 dark:text-neutral-300 mb-2">
-              Highest order value (£50 avg) with strong delivery metrics. Currently limited radius means we're leaving money on the table.
-            </p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              → Recommendation: Expand delivery zone by 4km for +£5,200/month revenue
-            </p>
-          </div>
-        </div>
-      </section>
-
-     {/* QUICK TECH NOTES */}
-      <section className="max-w-5xl mx-auto">
-        <h2 className="text-2xl font-bold text-black dark:text-white mb-6 text-center">
-          Technical Bits
-        </h2>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
-            <h3 className="font-semibold text-black dark:text-white mb-3 flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-blue-500" />
-              DAX Measures
-            </h3>
-            <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-              <li>• Delivery efficiency ratios</li>
-              <li>• Driver utilization percentages</li>
-              <li>• Branch performance scoring</li>
-              <li>• Peak hour classifications</li>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-xl bg-secondary border border-custom">
+            <h3 className="font-semibold text-primary mb-3">DAX Measures</h3>
+            <ul className="space-y-2 text-sm text-secondary">
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Delivery efficiency ratios (time vs distance)
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Driver utilization percentages
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Branch performance scoring
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Peak hour classifications
+              </li>
             </ul>
           </div>
 
-          <div className="p-6 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
-            <h3 className="font-semibold text-black dark:text-white mb-3 flex items-center gap-2">
-              <Layers className="h-5 w-5 text-purple-500" />
-              Calculated Columns
-            </h3>
-            <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-              <li>• Cross-borough delivery flags</li>
-              <li>• Order size categorization</li>
-              <li>• Time slot groupings</li>
-              <li>• Distance band analysis</li>
+          <div className="p-5 rounded-xl bg-secondary border border-custom">
+            <h3 className="font-semibold text-primary mb-3">Calculated Columns</h3>
+            <ul className="space-y-2 text-sm text-secondary">
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Cross-borough delivery flags
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Order size categorization
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Time slot groupings
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[var(--accent)] mt-1">•</span>
+                Distance band analysis
+              </li>
             </ul>
           </div>
         </div>
 
-    
-        <div className="mt-6 p-5 bg-blue-50 dark:bg-blue-900/20 rounded-xl border-l-4 border-blue-500">
-          <p className="text-sm text-neutral-700 dark:text-neutral-300">
-            <strong className="text-blue-600 dark:text-blue-400">Fun constraint:</strong> With limited data, every measure had to earn its keep. No room for "wouldn't it be cool if..." only report that directly answers business questions.
+        <div className="p-5 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/20">
+          <p className="text-secondary">
+            <strong className="text-primary">The Constraint as Feature:</strong> With limited data, every 
+            measure had to earn its keep. No room for "wouldn't it be cool if..." — only metrics that 
+            directly answered business questions.
           </p>
         </div>
       </section>
 
-      <div className="text-center max-w-4xl mx-auto">
-        <Link
-          href="/"
-          className="inline-block px-6 py-3 rounded-full border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-        >
-          ← Back to Portfolio
-        </Link>
-      </div>
+      {/* Impact */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-bold text-primary">Business Value</h2>
+        
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="p-5 rounded-xl bg-secondary border border-custom text-center">
+            <div className="text-3xl font-bold text-[var(--accent)] mb-2">£5.2K</div>
+            <p className="text-sm text-secondary">Monthly revenue opportunity identified</p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-secondary border border-custom text-center">
+            <div className="text-3xl font-bold text-[var(--accent)] mb-2">22 min</div>
+            <p className="text-sm text-secondary">Potential delivery time reduction</p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-secondary border border-custom text-center">
+            <div className="text-3xl font-bold text-[var(--accent)] mb-2">3</div>
+            <p className="text-sm text-secondary">Actionable recommendations</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-bold text-primary">Tools Used</h2>
+        
+        <div className="flex flex-wrap gap-3">
+          {[
+            "Power BI",
+            "DAX",
+            "Calculated Columns",
+            "Delivery Analysis",
+            "Operations Metrics"
+          ].map((tech) => (
+            <span key={tech} className="px-4 py-2 rounded-lg bg-tertiary text-secondary text-sm font-medium">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

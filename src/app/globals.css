@@ -12,20 +12,34 @@
     overflow-x: hidden;
   }
 
+  /* ChatGPT/Claude-inspired color scheme */
   :root {
-    @apply bg-white text-black;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f7f8;
+    --bg-tertiary: #ececf1;
+    --text-primary: #0d0d0d;
+    --text-secondary: #676767;
+    --text-tertiary: #8e8e8e;
+    --border: #e5e5e5;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
   }
 
   .dark {
-    @apply bg-black text-white;
+    --bg-primary: #212121;
+    --bg-secondary: #2f2f2f;
+    --bg-tertiary: #3f3f3f;
+    --text-primary: #ececec;
+    --text-secondary: #c5c5d0;
+    --text-tertiary: #9b9ba5;
+    --border: #4e4e4e;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
   }
 
   body {
-    @apply bg-white text-black;
-  }
-
-  .dark body {
-    @apply bg-black text-white;
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   }
 
   /* Custom scrollbar */
@@ -38,109 +52,94 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-black/20 rounded-full;
-  }
-
-  .dark ::-webkit-scrollbar-thumb {
-    @apply bg-white/20 rounded-full;
+    @apply bg-[var(--text-tertiary)] rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-black/40;
-  }
-
-  .dark ::-webkit-scrollbar-thumb:hover {
-    @apply bg-white/40;
-  }
-}
-
-/* Shimmer animations */
-@keyframes shimmer-slide {
-  to {
-    transform: translate(calc(100cqw - 100%), 0);
-  }
-}
-
-@keyframes spin-around {
-  0% {
-    transform: translateZ(0) rotate(0);
-  }
-
-  15%,
-  35% {
-    transform: translateZ(0) rotate(90deg);
-  }
-
-  65%,
-  85% {
-    transform: translateZ(0) rotate(270deg);
-  }
-
-  100% {
-    transform: translateZ(0) rotate(360deg);
-  }
-}
-
-/* Fade in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    @apply bg-[var(--text-secondary)];
   }
 }
 
 @layer utilities {
-  .animate-shimmer-slide {
-    animation: shimmer-slide var(--speed, 3s) ease-in-out infinite alternate;
+  .text-primary {
+    color: var(--text-primary);
+  }
+  
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .text-tertiary {
+    color: var(--text-tertiary);
   }
 
-  .animate-spin-around {
-    animation: spin-around calc(var(--speed, 3s) * 2) infinite linear;
+  .bg-primary {
+    background-color: var(--bg-primary);
   }
 
+  .bg-secondary {
+    background-color: var(--bg-secondary);
+  }
+
+  .bg-tertiary {
+    background-color: var(--bg-tertiary);
+  }
+
+  .border-custom {
+    border-color: var(--border);
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  .accent-hover:hover {
+    color: var(--accent-hover);
+  }
+
+  /* Smooth animations */
   .fade-in {
-    opacity: 0;
+    animation: fadeIn 0.5s ease-out;
   }
 
-  .fade-in.animate-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-
-  /* Add these to your global.css or Tailwind layer for subtle motion: */
-
-  @keyframes scan {
-    0% {
-      background-position: 0 0;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
     }
-
-    100% {
-      background-position: 0 3px;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  .animate-scan {
-    animation: scan 0.4s linear infinite;
+  .slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
   }
 
-  @keyframes pulse-slow {
-
-    0%,
-    100% {
-      opacity: 0.3;
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
     }
-
-    50% {
-      opacity: 0.6;
+    to {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
-  .animate-pulse-slow {
-    animation: pulse-slow 4s ease-in-out infinite;
+  .slide-in-right {
+    animation: slideInRight 0.6s ease-out;
   }
 
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }

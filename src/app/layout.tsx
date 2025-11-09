@@ -5,11 +5,11 @@ import { ThemeProvider } from "@/components/Theme/themeprovider";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: "Atif",
-  description: "Would you even read this?",
+  title: "Atif: Consultant & Automation Specialist",
+  description: "Power BI specialist and data analyst with expertise in ETL pipelines, automation, and business intelligence.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          <div className="min-h-screen">
+            {children}
+          </div>
           <Footer />
         </ThemeProvider>
       </body>
