@@ -467,7 +467,7 @@ export default function FindMyNumberGame() {
         {/* Cards Grid */}
         <div className="mb-4">
           {currentMode === "classic" ? (
-            <div className="grid grid-cols-5 md:grid-cols-6 gap-2 max-w-full sm:max-w-4xl mx-auto">
+            <div className="grid grid-cols-4 md:grid-cols-6 gap-2 max-w-full sm:max-w-4xl mx-auto">
               {Array.from({ length: cardsToShow }, (_, index) => {
                 if (index >= classicNumbers.length)
                   return <div key={`empty-${index}`} className="aspect-square" />;
