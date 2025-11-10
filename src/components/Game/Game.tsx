@@ -65,7 +65,7 @@ export default function FindMyNumberGame() {
     }
 
     // SECOND: Fill remaining slots (18 total - 11 from phone number = 7 more cards)
-    const remainingSlots = 18 - PHONE_NUMBER.length; // 7 cards
+    const remainingSlots = 20 - PHONE_NUMBER.length; // 9 cards
     for (let i = 0; i < remainingSlots; i++) {
       // Add random digits 0-9 for the remaining slots
       numbers.push(Math.floor(Math.random() * 10));
@@ -73,6 +73,8 @@ export default function FindMyNumberGame() {
 
     return shuffleArray(numbers);
   };
+
+  const [cardsToShow, setCardsToShow] = useState<number>(18);
 
   const startFlipBackTimer = (cardIndex: number) => {
     // Don't start timer for correct cards
@@ -180,6 +182,21 @@ export default function FindMyNumberGame() {
       clearAllFlipTimers();
     };
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCardsToShow(20); // mobile 4x5
+      } else {
+        setCardsToShow(18); // desktop 6x3
+      }
+    };
+
+    handleResize(); // run once on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
 
   useEffect(() => {
     if (shuffleIntervalRef.current) clearInterval(shuffleIntervalRef.current);
@@ -364,33 +381,37 @@ export default function FindMyNumberGame() {
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 py-6">
-      <div className="relative bg-secondary/70 border border-custom backdrop-blur-md rounded-3xl p-12 shadow-glass">
+    <section className="w-full max-w-6xl mx-auto px-6 py-6">
+      <div className="relative bg-secondary/70 border border-custom backdrop-blur-md rounded-3xl p-5 sm:p-8 md:p-10 shadow-glass">
         {/* Top Section - Title and Mode Buttons */}
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-primary">Find My Number</h2>
+        {/* Top Section - Title and Mode Buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-primary text-center sm:text-left">
+            Find My Number
+          </h2>
 
-          <div className="flex gap-2">
+          <div className="flex justify-center sm:justify-end gap-2 flex-wrap">
             <button
               onClick={() => handleModeChange("classic")}
-              className={`px-5 py-2 rounded-xl font-semibold text-sm transition-all ${currentMode === "classic"
-                  ? "bg-[var(--accent)] text-white"
-                  : "bg-secondary text-secondary hover:bg-tertiary"
+              className={`px-4 sm:px-5 py-2 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm transition-all ${currentMode === "classic"
+                ? "bg-[var(--accent)] text-white"
+                : "bg-secondary text-secondary hover:bg-tertiary"
                 }`}
             >
-              Classic Mode
+              Classic
             </button>
             <button
               onClick={() => handleModeChange("speedrun")}
-              className={`px-5 py-2 rounded-xl font-semibold text-sm transition-all ${currentMode === "speedrun"
-                  ? "bg-[var(--accent)] text-white"
-                  : "bg-secondary text-secondary hover:bg-tertiary"
+              className={`px-4 sm:px-5 py-2 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm transition-all ${currentMode === "speedrun"
+                ? "bg-[var(--accent)] text-white"
+                : "bg-secondary text-secondary hover:bg-tertiary"
                 }`}
             >
               Speed Run
             </button>
           </div>
         </div>
+
 
         {/* Instructions */}
         <div className="mb-4 p-2.5 bg-tertiary/40 rounded-xl border border-custom">
@@ -402,36 +423,39 @@ export default function FindMyNumberGame() {
         </div>
 
         {/* Middle Section - Phone Display and Stats */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-4">
+        {/* Middle Section - Phone Display and Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
           {/* Phone Display */}
-          <div className="p-2 bg-secondary rounded-xl border border-custom text-center">
-            <div className="text-2xl font-mono tracking-widest text-primary text-center">
+          <div className="p-3 bg-secondary rounded-xl border border-custom text-center">
+            <div className="text-xl sm:text-2xl font-mono tracking-widest text-primary text-center break-all">
               {renderPhoneDisplay()}
             </div>
           </div>
 
           {/* Stats Box */}
-          <div className="grid grid-cols-3 p-2 bg-secondary rounded-xl border border-custom text-center">
+          <div className="grid grid-cols-3 p-3 bg-secondary rounded-xl border border-custom text-center">
             <div>
-              <div className="text-xl font-bold text-primary">
+              <div className="text-base sm:text-xl font-bold text-primary">
                 {gameState.attempts}
                 {currentMode === "classic" ? `/${MAX_ATTEMPTS_CLASSIC}` : ""}
               </div>
-              <div className="text-[10px] text-tertiary uppercase tracking-wider">
+              <div className="text-[9px] sm:text-[10px] text-tertiary uppercase tracking-wider">
                 Attempts
               </div>
             </div>
             <div>
-              <div className="text-xl font-bold text-primary">
+              <div className="text-base sm:text-xl font-bold text-primary">
                 {Math.max(0, gameState.score)}
               </div>
-              <div className="text-[10px] text-tertiary uppercase tracking-wider">
+              <div className="text-[9px] sm:text-[10px] text-tertiary uppercase tracking-wider">
                 Score
               </div>
             </div>
             <div>
-              <div className="text-xl font-bold text-primary">{getTimeDisplay()}</div>
-              <div className="text-[10px] text-tertiary uppercase tracking-wider">
+              <div className="text-base sm:text-xl font-bold text-primary">
+                {getTimeDisplay()}
+              </div>
+              <div className="text-[9px] sm:text-[10px] text-tertiary uppercase tracking-wider">
                 Time
               </div>
             </div>
@@ -439,10 +463,12 @@ export default function FindMyNumberGame() {
         </div>
 
         {/* Cards Grid */}
+        {/* Cards Grid */}
+        {/* Cards Grid */}
         <div className="mb-4">
           {currentMode === "classic" ? (
-            <div className="grid grid-cols-6 gap-2 max-w-3xl mx-auto">
-              {Array.from({ length: 18 }, (_, index) => {
+            <div className="grid grid-cols-5 md:grid-cols-6 gap-2 max-w-full sm:max-w-4xl mx-auto">
+              {Array.from({ length: cardsToShow }, (_, index) => {
                 if (index >= classicNumbers.length)
                   return <div key={`empty-${index}`} className="aspect-square" />;
 
@@ -456,15 +482,17 @@ export default function FindMyNumberGame() {
                     key={index}
                     onClick={() => cardClick(index, num)}
                     disabled={state === "correct"}
-                    className={`aspect-square rounded-xl font-bold text-3xl transition-all duration-300 ${!isFlipped
+                    className={`aspect-square rounded-lg sm:rounded-xl font-bold text-lg sm:text-xl md:text-2xl transition-all duration-300
+              ${!isFlipped
                         ? "bg-tertiary text-secondary hover:bg-tertiary/80"
                         : state === "correct"
                           ? "bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-300 border-2 border-green-500 animate-correctPulse"
                           : state === "wrong-position"
                             ? "bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border-2 border-amber-500 opacity-60 hover:opacity-100"
                             : "bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-300 border-2 border-red-500"
-                      } ${isHighlighted ? "scale-95" : "hover:scale-105"} ${state === "correct" ? "cursor-not-allowed" : "cursor-pointer"
-                      }`}
+                      } 
+              ${isHighlighted ? "scale-95" : "hover:scale-105"} 
+              ${state === "correct" ? "cursor-not-allowed" : "cursor-pointer"}`}
                   >
                     {isFlipped ? num : "?"}
                   </button>
@@ -472,8 +500,8 @@ export default function FindMyNumberGame() {
               })}
             </div>
           ) : (
-            <div className="grid grid-cols-6 gap-2 max-w-3xl mx-auto">
-              {Array.from({ length: 18 }, (_, index) => {
+            <div className="grid grid-cols-4 md:grid-cols-6 gap-2 max-w-full sm:max-w-4xl mx-auto">
+              {Array.from({ length: cardsToShow }, (_, index) => {
                 if (index >= speedCardNumbers.length)
                   return <div key={`empty-${index}`} className="aspect-square" />;
 
@@ -482,8 +510,8 @@ export default function FindMyNumberGame() {
                   <button
                     key={index}
                     onClick={() => speedCardClick(num, index)}
-                    className={`aspect-square rounded-xl font-bold text-3xl bg-tertiary text-primary hover:bg-tertiary/80 transition-all ${highlightedCard === index ? "scale-95" : "hover:scale-105"
-                      }`}
+                    className={`aspect-square rounded-lg sm:rounded-xl font-bold text-lg sm:text-xl md:text-2xl bg-tertiary text-primary hover:bg-tertiary/80 transition-all 
+              ${highlightedCard === index ? "scale-95" : "hover:scale-105"}`}
                   >
                     {num}
                   </button>
@@ -497,14 +525,14 @@ export default function FindMyNumberGame() {
         {gameState.gameOver && (
           <div
             className={`mb-3 p-3 rounded-xl text-center ${gameState.currentPosition >= PHONE_NUMBER.length
-                ? "bg-green-50 dark:bg-green-950 border-2 border-green-500"
-                : "bg-red-50 dark:bg-red-950 border-2 border-red-500"
+              ? "bg-green-50 dark:bg-green-950 border-2 border-green-500"
+              : "bg-red-50 dark:bg-red-950 border-2 border-red-500"
               }`}
           >
             <h3
               className={`text-lg font-bold mb-1 ${gameState.currentPosition >= PHONE_NUMBER.length
-                  ? "text-green-700 dark:text-green-300"
-                  : "text-red-700 dark:text-red-300"
+                ? "text-green-700 dark:text-green-300"
+                : "text-red-700 dark:text-red-300"
                 }`}
             >
               {gameState.currentPosition >= PHONE_NUMBER.length

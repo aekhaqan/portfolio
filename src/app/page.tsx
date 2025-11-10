@@ -61,7 +61,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  // Parallax mouse effect for glowing background orbs
+  // Mouse parallax effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -190,7 +190,6 @@ export default function Home() {
   const handleCapabilityClick = (capId: string) => {
     const newSelection = selectedWork === capId ? null : capId;
     setSelectedWork(newSelection);
-
     setTimeout(() => {
       if (projectsRef.current && newSelection) {
         projectsRef.current.scrollIntoView({
@@ -303,7 +302,7 @@ export default function Home() {
         </section>
 
         {/* ---------------- PROJECTS ---------------- */}
-        <section id="projects" ref={projectsRef} className="space-y-2 scroll-mt-24">
+        <section id="projects" ref={projectsRef} className="space-y-0 scroll-mt-24">
           <div className="grid gap-8">
             {filteredProjects.map((project) => {
               const isGameProject = project.id === "game";
@@ -311,59 +310,61 @@ export default function Home() {
               const CardInner = (
                 <>
                   <div className={`project-gradient ${project.gradientClass}`} />
-                  <div className="project-content">
-                    <div className="flex flex-col md:flex-row gap-8">
-                      <div className="flex-1 space-y-6">
-                        <div className="space-y-4">
-                          <h3 className="project-title">{project.title}</h3>
-                          <p className="project-description">
-                            {project.description}
+
+                  <div className="project-content relative flex flex-col md:flex-row overflow-hidden rounded-2xl shadow-glass">
+                    {/* -------- TEXT SIDE -------- */}
+                    <div className="flex flex-col justify-start flex-1 p-4 md:p-6 space-y-8">
+                      <h3 className="project-title text-xl md:text-2xl font-semibold text-primary leading-snug">
+                        {project.title}
+                      </h3>
+                      <p className="project-description text-sm md:text-base text-secondary leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      {/* -------- TAGS -------- */}
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {project.tags.map((tag) => (
+                          <div
+                            key={tag}
+                            className="project-tag flex items-center gap-1 px-3 py-1 text-xs md:text-sm rounded-lg"
+                          >
+                            <TechIcon name={tag} />
+                            {tag}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* -------- IMAGE SIDE -------- */}
+                    <div className="relative md:w-1/3 flex items-end justify-center md:justify-end bg-transparent p-4 md:p-6">
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          width={320}
+                          height={200}
+                          className="project-image rounded-xl object-cover w-full max-w-[320px] h-auto md:h-[200px]"
+                        />
+                      ) : (
+                        <div className="flex flex-col items-end justify-end text-center px-6">
+                          <Code
+                            className="h-14 w-14 md:h-16 md:w-16 mb-2"
+                            style={{ color: "var(--portfolio-accent)" }}
+                          />
+                          <p
+                            className="text-sm font-semibold"
+                            style={{ color: "var(--portfolio-text-primary)" }}
+                          >
+                            This Next.js Website
+                          </p>
+                          <p
+                            className="text-xs mt-1"
+                            style={{ color: "var(--portfolio-text-tertiary)" }}
+                          >
+                            + Game Below
                           </p>
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map((tag) => (
-                            <div key={tag} className="project-tag mt-16">
-                              <TechIcon name={tag} />
-                              {tag}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="project-image-container">
-                        {project.image ? (
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            width={300}
-                            height={150}
-                            className="project-image"
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center h-full text-center px-6">
-                            <Code
-                              className="h-16 w-16 mb-4"
-                              style={{ color: "var(--portfolio-accent)" }}
-                            />
-                            <p
-                              className="text-sm font-semibold"
-                              style={{
-                                color: "var(--portfolio-text-primary)",
-                              }}
-                            >
-                              This Next.js Website
-                            </p>
-                            <p
-                              className="text-xs mt-2"
-                              style={{
-                                color: "var(--portfolio-text-tertiary)",
-                              }}
-                            >
-                              + Game Below
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
                   </div>
                 </>
@@ -372,13 +373,17 @@ export default function Home() {
               return isGameProject ? (
                 <button
                   key={project.id}
-                  onClick={() =>
-                    gameRef.current?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    })
-                  }
-                  className="project-card group"
+                  onClick={() => {
+                    if (gameRef.current) {
+                      const yOffset = -80;
+                      const y =
+                        gameRef.current.getBoundingClientRect().top +
+                        window.scrollY +
+                        yOffset;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }}
+                  className="project-card group block text-left w-full h-full"
                 >
                   {CardInner}
                 </button>
@@ -386,7 +391,7 @@ export default function Home() {
                 <Link
                   key={project.id}
                   href={`/${project.id}`}
-                  className="project-card group"
+                  className="project-card group block text-left w-full h-full"
                 >
                   {CardInner}
                 </Link>
