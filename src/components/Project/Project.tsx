@@ -4,39 +4,83 @@ import { useState } from "react";
 import { ChevronLeft, ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+// ---------------- TECH ICON MAP ----------------
+import {
+  Database,
+  BarChart3,
+  FileText,
+  Zap,
+  Workflow,
+  Brain,
+  Code,
+  Server,
+  Cloud,
+  Cpu,
+  Shield,
+  Layers,
+  Lock,
+  SlidersHorizontal,
+} from "lucide-react";
+
+const TechIcon = ({ name }: { name: string }) => {
+  const icons: Record<string, React.ReactElement> = {
+    "Power BI": <BarChart3 className="h-4 w-4 text-[var(--accent)]" />,
+    "Microsoft Fabric": <Cloud className="h-4 w-4 text-[var(--accent)]" />,
+    "Power Platform": <Workflow className="h-4 w-4 text-[var(--accent)]" />,
+    "Dataverse": <Database className="h-4 w-4 text-[var(--accent)]" />,
+    "Power Automate": <Workflow className="h-4 w-4 text-[var(--accent)]" />,
+    "Power Apps": <Workflow className="h-4 w-4 text-[var(--accent)]" />,
+    "Power Query (M)": <SlidersHorizontal className="h-4 w-4 text-[var(--accent)]" />,
+    DAX: <Code className="h-4 w-4 text-[var(--accent)]" />,
+    Python: <Code className="h-4 w-4 text-[var(--accent)]" />,
+    SQL: <Server className="h-4 w-4 text-[var(--accent)]" />,
+    Azure: <Cloud className="h-4 w-4 text-[var(--accent)]" />,
+    "Machine Learning": <Cpu className="h-4 w-4 text-[var(--accent)]" />,
+    "Copilot Studio": <Brain className="h-4 w-4 text-[var(--accent)]" />,
+    GPT4: <Brain className="h-4 w-4 text-[var(--accent)]" />,
+    GPT: <Brain className="h-4 w-4 text-[var(--accent)]" />,
+    "Star Schema": <Layers className="h-4 w-4 text-[var(--accent)]" />,
+    "Star Schema Modelling": <Layers className="h-4 w-4 text-[var(--accent)]" />,
+    "Dataflows Gen2": <Zap className="h-4 w-4 text-[var(--accent)]" />,
+    "Data Governance": <Shield className="h-4 w-4 text-[var(--accent)]" />,
+    "GDPR Compliance": <Lock className="h-4 w-4 text-[var(--accent)]" />,
+    SharePoint: <FileText className="h-4 w-4 text-[var(--accent)]" />,
+    React: <Code className="h-4 w-4 text-[var(--accent)]" />,
+    "Next.js": <Code className="h-4 w-4 text-[var(--accent)]" />,
+    ETL: <Database className="h-4 w-4 text-[var(--accent)] opacity-90" />,
+  };
+
+  return icons[name] || <Zap className="h-4 w-4 text-[var(--accent)] opacity-80" />;
+};
+
+
 
 interface MediaItem {
   type: "image" | "video";
   src: string;
 }
 
-interface ProblemItem {
+interface SectionItem {
   title: string;
-  desc: string;
-}
-
-interface SolutionItem {
-  title: string;
-  desc: string;
-  color?: string; // blue, purple, amber, green
-  impact?: string;
+  desc?: string;
+  color?: string;
 }
 
 interface TechnicalItem {
   title: string;
   points: string[];
 }
+
 interface ProjectLayoutProps {
   title: string;
-  overview: string;
   hero?:
-  | { type: "image" | "video"; src: string; aspectRatio?: string }  // 👈 add it here
-  | { type: "carousel"; items: MediaItem[]; aspectRatio?: string }; // 👈 and here
-  problems?: ProblemItem[];
-  solutions?: SolutionItem[];
+  | { type: "image" | "video"; src: string; aspectRatio?: string }
+  | { type: "carousel"; items: MediaItem[]; aspectRatio?: string };
+  context?: string;
+  challenges?: SectionItem[];
+  approach?: SectionItem[];
+  results?: string[];
   technical?: TechnicalItem[];
-  insights?: string[];
-  impact?: string[];
   techStack?: string[];
   backText?: string;
   note?: string;
@@ -44,13 +88,12 @@ interface ProjectLayoutProps {
 
 export default function ProjectLayout({
   title,
-  overview,
   hero,
-  problems,
-  solutions,
+  context,
+  challenges,
+  approach,
+  results,
   technical,
-  insights,
-  impact,
   techStack,
   backText = "Back to portfolio",
   note,
@@ -67,16 +110,15 @@ export default function ProjectLayout({
       {/* Back Button */}
       <Link
         href="/"
-        className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors"
+        className="inline-flex items-center text-[var(--accent)] gap-2 hover:text-primary transition-colors"
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeft className="h-4 w-4 text-[var(--accent)]" />
         {backText}
       </Link>
 
       {/* Hero */}
       {hero && (
         <section className="relative rounded-xl overflow-hidden">
-          {/* Dynamic aspect ratio */}
           <div
             className="relative flex items-center justify-center w-full"
             style={{
@@ -105,7 +147,6 @@ export default function ProjectLayout({
               ))}
           </div>
 
-          {/* Carousel Navigation */}
           {hasCarousel && (
             <>
               <button
@@ -125,63 +166,82 @@ export default function ProjectLayout({
         </section>
       )}
 
-
       {/* Header */}
-      <section className="space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-primary">{title}</h1>
-        <p className="text-sm text-secondary">{overview}</p>
+      <section className="space-y-3 text-center md:text-left">
+        <h1 className="text-5xl md:text-5xl font-extrabold text-[var(--accent)]">
+          {title}
+        </h1>
+        {/* Removed redundant overview paragraph */}
       </section>
 
-      {/* Problems */}
-      {problems && problems.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="text-2xl font-bold text-primary">The Problem</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {problems.map((p, i) => (
-              <div key={i} className="p-5 rounded-xl bg-secondary border border-custom">
-                <h3 className="font-semibold text-primary mb-2">{p.title}</h3>
-                <p className="text-sm text-secondary">{p.desc}</p>
-              </div>
-            ))}
-          </div>
+
+      {/* Context */}
+      {context && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-primary">Context & Objective</h2>
+          <p className="text-secondary text-sm leading-relaxed">{context}</p>
         </section>
       )}
 
-      {/* Solutions */}
-      {solutions && solutions.length > 0 && (
+      {/* Challenges */}
+      {challenges && challenges.length > 0 && (
         <section className="space-y-6">
-          <h2 className="text-2xl font-bold text-primary">The Solution</h2>
-          <div className="space-y-4">
-            {solutions.map((s, i) => (
+          <h2 className="text-2xl font-semibold text-primary">Challenges Faced</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {challenges.map((c, i) => (
               <div
                 key={i}
-                className={`p-6 rounded-xl border-l-4 bg-secondary ${s.color ? `border-${s.color}-500` : "border-blue-500"
+                className={`p-5 rounded-xl bg-secondary border border-custom ${c.color ? `border-${c.color}-500` : "border-amber-500"
                   }`}
               >
-                <h3 className="font-semibold text-lg text-primary mb-3">{s.title}</h3>
-                <p className="text-secondary text-sm mb-3">{s.desc}</p>
-                {s.impact && (
-                  <div className="p-3 rounded bg-tertiary">
-                    <p className="text-xs text-secondary">
-                      <strong className="text-primary">Impact:</strong> {s.impact}
-                    </p>
-                  </div>
-                )}
+                <h3 className="font-semibold text-primary mb-2">{c.title}</h3>
+                <p className="text-sm text-secondary">{c.desc}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* Technical */}
+      {/* Approach & Solution */}
+      {approach && approach.length > 0 && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold text-primary">Approach & Solution</h2>
+          <div className="space-y-4">
+            {approach.map((a, i) => (
+              <div
+                key={i}
+                className={`p-6 rounded-xl bg-secondary border-l-4 ${a.color ? `border-${a.color}-500` : "border-blue-500"
+                  }`}
+              >
+                <h3 className="font-semibold text-lg text-primary mb-2">{a.title}</h3>
+                <p className="text-sm text-secondary">{a.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Results & Impact */}
+      {results && results.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-primary">Results & Impact</h2>
+          <ul className="tech-list pl-5 space-y-2 text-sm text-secondary">
+            {results.map((r, i) => (
+              <li key={i}>{r}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Technical Implementation */}
       {technical && technical.length > 0 && (
         <section className="space-y-6">
-          <h2 className="text-2xl font-bold text-primary">Technical Approach</h2>
+          <h2 className="text-2xl font-semibold text-primary">Technical Implementation</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {technical.map((t, i) => (
               <div key={i} className="p-5 rounded-xl bg-secondary border border-custom">
                 <h3 className="font-semibold text-primary mb-3">{t.title}</h3>
-                <ul className="tech-list">
+                <ul className="tech-list pl-5 text-sm text-secondary space-y-1">
                   {t.points.map((p, j) => (
                     <li key={j}>{p}</li>
                   ))}
@@ -192,56 +252,25 @@ export default function ProjectLayout({
         </section>
       )}
 
-      {/* Insights */}
-      {insights && insights.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="text-2xl font-bold text-primary">Key Insights</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {insights.map((ins, i) => (
-              <div key={i} className="p-5 rounded-xl bg-secondary border border-custom">
-                <h3 className="font-semibold text-primary">{ins}</h3>
+      {/* Tech Stack */}
+      {techStack && techStack.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-primary">Tech Stack</h2>
+          <div className="flex flex-wrap gap-3">
+            {techStack.map((tech, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-tertiary text-secondary text-sm font-medium"
+              >
+                <TechIcon name={tech} />
+                <span>{tech}</span>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* Impact */}
-      {impact && impact.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="text-2xl font-bold text-primary">Business Impact</h2>
-          <div className="space-y-3">
-            {impact.map((imp, i) => (
-              <p key={i} className="text-secondary text-sm">
-                {imp}
-              </p>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Tech Stack */}
-      {techStack && techStack.length > 0 && (
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-primary">Tech Stack</h2>
-          <div className="flex flex-wrap gap-3">
-            {techStack.map((tech, i) => (
-              <span
-                key={i}
-                className="px-4 py-2 rounded-lg bg-tertiary text-secondary text-sm font-medium"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {note && (
-        <p className="text-sm text-tertiary italic">
-          {note}
-        </p>
-      )}
+      {note && <p className="text-sm text-tertiary italic">{note}</p>}
     </main>
   );
 }

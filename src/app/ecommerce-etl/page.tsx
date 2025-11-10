@@ -5,7 +5,6 @@ export default function EcommerceETL() {
   return (
     <ProjectLayout
       title="E-Commerce Data Integration & Analytics"
-      overview="Unified fragmented online retail data into a single, GDPR-compliant dataset using Microsoft Fabric. Built a complete ETL pipeline and a 4-page Power BI report for interactive sales, customer, and product insights."
       hero={{
         type: "carousel",
         items: [
@@ -17,73 +16,68 @@ export default function EcommerceETL() {
           { type: "image", src: "/ecommerce5.png" },
         ],
       }}
-      problems={[
+      context="This project focused on creating a unified and reliable view of online retail operations. The objective was to design an automated data pipeline that integrates sales, inventory, and customer data into one trusted source, enabling real-time analytics and ensuring compliance with data protection standards."
+      challenges={[
         {
-          title: "Scattered Data Sources",
-          desc: "Transaction, customer, and inventory data spread across multiple Excel files, web exports, and legacy databases.",
+          title: "Fragmented Data Landscape",
+          desc: "Sales, customer, and inventory data were stored in separate spreadsheets, APIs, and legacy databases, resulting in inconsistency and poor integration.",
         },
         {
-          title: "Inconsistent Quality",
-          desc: "Missing customer identifiers, duplicate orders, and non-standard date formats created reconciliation challenges.",
+          title: "Poor Data Hygiene",
+          desc: "Duplicate orders, missing identifiers, and inconsistent time formats made it difficult to produce accurate metrics and reconcile data across systems.",
         },
         {
-          title: "Compliance Gaps",
-          desc: "Customer data lacked proper anonymisation and retention handling, risking GDPR non-compliance.",
+          title: "Regulatory Risk",
+          desc: "Customer records lacked proper anonymisation and retention policies, creating potential non-compliance with GDPR requirements.",
         },
       ]}
-      solutions={[
+
+      approach={[
         {
           title: "Fabric Dataflows & Cleansing",
           color: "blue",
-          desc: "Connected multiple sources through Microsoft Fabric and Power Query. Applied transformation logic for standardising column names, correcting nulls, and mapping categories. Implemented automatic deduplication and validation routines.",
+          desc: "Used Microsoft Fabric Dataflows to ingest and transform multi-source data. Standardised structures, fixed nulls, deduplicated records, and enforced data-type validation.",
         },
         {
-          title: "GDPR-Compliant Data Modelling",
+          title: "Secure Data Modelling",
           color: "purple",
-          desc: "Designed a secure schema in Fabric Lakehouse, removing or hashing personally identifiable data. Ensured audit trails for all transformations and maintained region-based access policies.",
+          desc: "Built a Lakehouse schema with region-based access and hashed personal identifiers. Each transformation step logged for full auditability and compliance assurance.",
         },
         {
-          title: "Star Schema & Measure Layer",
+          title: "Optimised Star Schema",
           color: "amber",
-          desc: "Modelled a central fact table linked to dimension tables for products, customers, and regions. Built DAX measures for sales trends, conversion rates, and customer lifetime value.",
+          desc: "Created a central fact table linked to product, region, and customer dimensions. Developed reusable DAX measures for sales growth, conversion, and lifetime value.",
         },
         {
-          title: "Interactive Insights",
+          title: "Dynamic Reporting Layer",
           color: "green",
-          desc: "Created an executive dashboard covering sales performance, profit margins, customer cohorts, and product segmentation. Enabled drill-through and dynamic filtering for region and channel comparisons.",
+          desc: "Developed a four-page Power BI dashboard offering drill-through analytics for sales performance, profitability, cohort trends, and product segmentation.",
         },
+      ]}
+      results={[
+        "Reduced manual data prep by over 4 hours per week through full automation.",
+        "Created a single, governed dataset now used by multiple business units.",
+        "Implemented GDPR-aligned data policies including anonymisation and retention schedules.",
+        "Delivered consistent, accurate metrics improving commercial decision-making and forecasting.",
       ]}
       technical={[
         {
-          title: "DAX Measures",
+          title: "Modelling & Measures",
           points: [
-            "Delivery efficiency ratios (time vs distance)",
-            "Driver utilisation percentages",
-            "Branch performance scoring",
-            "Peak hour classifications",
+            "Sales growth, profit margin, and lifetime value DAX calculations.",
+            "Cross-region delivery and seasonality analysis.",
+            "Branch and product-level performance indicators.",
+            "Categorical segmentation for time slots and basket size.",
           ],
         },
         {
-          title: "Calculated Columns",
+          title: "Automation Layer",
           points: [
-            "Cross-borough delivery flags",
-            "Order size categorisation",
-            "Time slot groupings",
-            "Distance band analysis",
+            "Dataflows Gen2 used for scheduled ingestion and transformation.",
+            "Power BI Service refresh configured for near real-time reporting.",
+            "Error logging and data validation integrated into pipeline runs.",
           ],
         },
-      ]}
-      insights={[
-        "15% of revenue driven by repeat customers",
-        "Significant regional under-performance in North Zone",
-        "High return rate linked to two specific product lines",
-        "Seasonality: 40% of yearly sales occur in Q4",
-      ]}
-      impact={[
-        "Time saved: Weekly data refresh fully automated — eliminating over 4 hours of manual consolidation.",
-        "Data reliability: Consistent, validated dataset now trusted by all business units.",
-        "Governance: GDPR-aligned retention and anonymisation policies built into every pipeline.",
-        "Decision quality: Real-time insight into product profitability and customer retention improved forecasting accuracy.",
       ]}
       techStack={[
         "Microsoft Fabric",
@@ -91,11 +85,11 @@ export default function EcommerceETL() {
         "Power BI",
         "DAX",
         "Power Query (M)",
-        "Star Schema",
+        "Star Schema Modelling",
         "Data Governance",
         "GDPR Compliance",
       ]}
-      note="Note: Synthetic dataset used for demonstration. All modelling, transformations, and automation steps replicate real enterprise ETL practices."
+      note="Demonstration project using synthetic retail data. All transformations, models, and governance steps reflect real-world enterprise ETL practice."
     />
   );
 }

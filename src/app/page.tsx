@@ -284,9 +284,8 @@ export default function Home() {
               <button
                 key={cap.id}
                 onClick={() => handleCapabilityClick(cap.id)}
-                className={`capability-btn ${
-                  selectedWork === cap.id ? "active" : ""
-                }`}
+                className={`capability-btn ${selectedWork === cap.id ? "active" : ""
+                  }`}
               >
                 <div className="capability-icon">{cap.icon}</div>
                 <h3 className="capability-title">{cap.title}</h3>
@@ -303,7 +302,7 @@ export default function Home() {
 
         {/* ---------------- PROJECTS ---------------- */}
         <section id="projects" ref={projectsRef} className="space-y-0 scroll-mt-24">
-          <div className="grid gap-8">
+          <div className="grid gap-6">
             {filteredProjects.map((project) => {
               const isGameProject = project.id === "game";
 
@@ -311,9 +310,10 @@ export default function Home() {
                 <>
                   <div className={`project-gradient ${project.gradientClass}`} />
 
-                  <div className="project-content relative flex flex-col md:flex-row overflow-hidden rounded-2xl shadow-glass">
+                  <div className="project-content relative flex flex-col md:flex-row overflow-hidden rounded-xl shadow-glass">
                     {/* -------- TEXT SIDE -------- */}
-                    <div className="flex flex-col justify-start flex-1 p-4 md:p-6 space-y-8">
+                    <div className="flex flex-col justify-start flex-1 p-3 md:p-4 space-y-6">
+
                       <h3 className="project-title text-xl md:text-3xl text-primary leading-snug">
                         {project.title}
                       </h3>
@@ -336,7 +336,7 @@ export default function Home() {
                     </div>
 
                     {/* -------- IMAGE SIDE -------- */}
-                    <div className="relative md:w-1/3 flex items-end justify-center md:justify-end bg-transparent p-4 md:p-6">
+                    <div className="relative md:w-1/3 flex items-end justify-center md:justify-end bg-transparent p-3 md:p-4">
                       {project.image ? (
                         <Image
                           src={project.image}

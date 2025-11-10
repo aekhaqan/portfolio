@@ -5,87 +5,84 @@ export default function AIResourceAllocation() {
   return (
     <ProjectLayout
       title="AI Resource Allocation System"
-      overview="Intelligent automation that matches project needs with the right people. Powered by Dataverse, Power Automate, and GPT-4 for skill matching, optimisation, and proactive workload monitoring."
       hero={{
         type: "image",
         src: "/ai-automation.png",
       }}
-      problems={[
+      context="I designed an intelligent resourcing solution to replace static spreadsheets and subjective manager decisions. The objective was to automate project allocation, balance workloads, and provide real-time visibility of team capacity across departments."
+      challenges={[
         {
-          title: "Manual Allocation",
-          desc: "Managers assign staff by availability, not skills — slowing projects and lowering output.",
+          title: "Limited Visibility",
+          desc: "There was no centralised system showing who was available or over-allocated, which made planning reactive and inconsistent.",
         },
         {
-          title: "Unbalanced Workload",
-          desc: "Without real-time visibility, teams face burnout while others sit idle.",
+          title: "Manual Skill Matching",
+          desc: "Managers relied on memory and emails to match people to projects, which was slow and did not scale effectively.",
         },
         {
-          title: "Reactive Planning",
-          desc: "Issues surface only after overruns or missed deadlines — too late to fix efficiently.",
+          title: "Disconnected Tools",
+          desc: "Approvals, timesheets, and reporting were handled in separate systems, creating duplication and data silos.",
         },
       ]}
-      solutions={[
+      approach={[
         {
-          title: "Smart Intake",
+          title: "AI-Led Intake",
           color: "blue",
-          desc: "Requests from email or portals are analysed by AI Builder and GPT-4 to extract skills, deadlines, and effort estimates.",
-          impact: "Eliminates manual reading — requests are structured and ready for assignment.",
+          desc: "Incoming project requests were analysed by AI Builder and GPT-4 to extract skills, timelines, and effort estimates automatically.",
         },
         {
-          title: "AI Skill Matching",
+          title: "Optimised Matching Engine",
           color: "purple",
-          desc: "The optimiser compares project data with Dataverse staff profiles to suggest the ideal mix of people by skill, load, and availability.",
-          impact: "Assignments generated in minutes, improving utilisation and delivery speed.",
+          desc: "Dataverse stored structured staff profiles. An optimiser assessed availability, capability, and workload to recommend balanced teams.",
         },
         {
-          title: "Quick Approvals",
+          title: "Seamless Approvals",
           color: "amber",
-          desc: "Managers review AI-suggested teams directly in Teams or Power Apps and approve or adjust instantly.",
-          impact: "Decision cycles reduced from days to minutes.",
+          desc: "Power Automate integrated with Teams and Outlook so that managers could review or adjust AI-generated team suggestions instantly.",
         },
         {
-          title: "Monitoring & Forecasting",
+          title: "Continuous Monitoring",
           color: "green",
-          desc: "Dataverse and Power BI track workload, detect anomalies, and forecast capacity across teams.",
-          impact: "Enables early intervention and balanced resourcing.",
+          desc: "Power BI tracked utilisation and forecasted capacity while anomaly detection identified workload imbalances early.",
         },
       ]}
-      impact={[
-        "Efficiency Gains: Allocation time reduced from hours to minutes; manager reviews simplified and automated; forecasting accuracy improved by 40%.",
-        "Better Work Balance: Even distribution of work across teams; higher retention and job satisfaction; fewer delays from resourcing issues.",
-        "Key Insight: The AI model accounts for workload, holidays, and development goals — assigning people where they add the most value.",
+      results={[
+        "Reduced allocation time from several hours to minutes through automation and integrated data flows.",
+        "Improved organisation-wide visibility of workloads, resulting in better balance and retention.",
+        "Enhanced forecasting accuracy by around forty percent, enabling earlier interventions.",
+        "The model incorporated holidays, learning objectives, and project criticality to create fair and data-driven resourcing decisions.",
       ]}
       technical={[
         {
-          title: "Orchestration Layer",
+          title: "Automation Orchestration",
           points: [
-            "Power Automate manages workflow routing",
-            "Modular flows for allocation and monitoring",
-            "Teams and Outlook connectors for approvals",
+            "Power Automate handled all routing logic and approvals.",
+            "Teams and Outlook connectors provided real-time notifications.",
+            "Flows were modularised into allocation, approval, and monitoring layers.",
           ],
         },
         {
           title: "AI Components",
           points: [
-            "AI Builder extracts metadata from project briefs",
-            "GPT-4 and Copilot Studio provide insights",
-            "Power BI anomaly detection for monitoring",
+            "AI Builder extracted structured data from project briefs.",
+            "GPT-4 and Copilot Studio provided contextual analysis and recommendations.",
+            "Power BI used anomaly detection to monitor utilisation and identify risks.",
           ],
         },
         {
-          title: "Data Layer",
+          title: "Data Infrastructure",
           points: [
-            "Dataverse for staff, projects, and timesheets",
-            "SharePoint for audit and document storage",
-            "Power BI for utilisation dashboards",
+            "Dataverse stored entities for staff, projects, and workloads.",
+            "SharePoint managed document storage and audit records.",
+            "Power BI combined all data sources into a single live reporting layer.",
           ],
         },
         {
-          title: "Integration Points",
+          title: "Integration Layer",
           points: [
-            "Teams notifications for managers",
-            "Email intake for project requests",
-            "Power Apps for allocation interface",
+            "Teams notifications kept managers informed at every stage.",
+            "Email intake automatically captured new project requests.",
+            "Power Apps provided the front-end interface for allocation and approval.",
           ],
         },
       ]}
@@ -98,7 +95,7 @@ export default function AIResourceAllocation() {
         "SharePoint",
         "Teams",
       ]}
-      note="Figure: Architecture diagram for the AI Resource Allocation System — illustrating AI-led intake, optimisation, and reporting. Tools interchangeable for demonstration."
+      note="Architecture diagram below shows the AI-led intake, optimisation, and monitoring layers, demonstrating how automation, data, and AI combine to create a smarter and more efficient workforce planning process."
     />
   );
 }

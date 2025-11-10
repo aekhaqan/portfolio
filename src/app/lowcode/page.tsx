@@ -5,91 +5,84 @@ export default function ProcurementAutomation() {
   return (
     <ProjectLayout
       title="Procurement Automation System"
-      overview="A low-code workflow for purchase requests and approvals. Automates validation, routing, and budget control using Power Automate and Dataverse — reducing approval time from 7 days to under 2."
       hero={{
         type: "image",
         src: "/lowcode.png",
       }}
-      problems={[
+      context="This project was created to simplify and control the procurement process. The aim was to replace slow, email-based approvals with a structured system that automatically validates requests, routes them to the correct approvers, and provides live visibility of budgets and spending."
+      challenges={[
         {
           title: "Unclear Routing",
-          desc: "Requests often bounced between the wrong approvers, wasting time and causing delays.",
+          desc: "Requests were often sent to the wrong approvers, causing delays and confusion between departments.",
         },
         {
-          title: "Budget Overspend",
-          desc: "Finance discovered overspending only at quarter-end, after budgets had already been breached.",
+          title: "Budget Overspending",
+          desc: "Finance teams became aware of exceeded budgets only at the end of each quarter, leaving no opportunity for corrective action.",
         },
         {
-          title: "Weak Audit Trail",
-          desc: "Approvals were buried in emails and spreadsheets, making audits slow and incomplete.",
+          title: "Lack of Audit Visibility",
+          desc: "Approval evidence was hidden in email threads and spreadsheets, making audit preparation time-consuming and inconsistent.",
         },
       ]}
-      solutions={[
+      approach={[
         {
-          title: "Request Intake & Validation",
+          title: "Automated Request Validation",
           color: "blue",
-          desc: "Purchase requests are validated automatically against approved suppliers, category rules, and budget authority in Dataverse.",
-          impact:
-            "No rejected submissions or missing documents — all checks happen instantly.",
+          desc: "All purchase requests were validated automatically against approved suppliers, category rules, and budget limits in Dataverse, removing the need for manual checks.",
         },
         {
           title: "Dynamic Approval Routing",
           color: "amber",
-          desc: "Approval path adapts by value: Under £5k → Line Manager, £5k–£25k → + Department Head, £25k–£50k → + Finance Director, Over £50k → All three levels.",
-          impact:
-            "Requests reach the right approver first time — no manual routing required.",
+          desc: "Power Automate used tier-based logic to route requests according to value thresholds. Requests under five thousand pounds went to Line Managers, mid-range requests reached Department Heads and Finance, while high-value approvals required senior authorisation.",
         },
         {
-          title: "Real-Time Budget Management",
+          title: "Real-Time Budget Control",
           color: "green",
-          desc: "Approved requests automatically reserve funds. Power BI dashboards show live budget usage and forecasts by department.",
-          impact:
-            "Finance gains real-time visibility and control — no more overspend surprises.",
+          desc: "Approved requests automatically reserved funds within the system. Power BI dashboards provided instant visibility of spending, available balances, and forecasted commitments by department.",
         },
         {
-          title: "Completion & Audit Trail",
+          title: "Complete Audit Trail",
           color: "purple",
-          desc: "Purchase Orders (POs) generate automatically, notify suppliers via Outlook, and log every step to SharePoint for full traceability.",
-          impact:
-            "Compliance teams can review any request in seconds — fully auditable end-to-end.",
+          desc: "Every approval, rejection, and budget update was recorded in SharePoint, creating a fully auditable record. Notifications were sent to all stakeholders via Outlook and Teams to maintain full transparency.",
         },
       ]}
-      impact={[
-        "Speed: Approval times reduced from a week to under two days. Instant routing and mobile approvals ensure requests never sit idle or lost in email chains.",
-        "Control & Compliance: Real-time visibility of committed and available budgets. Automated records support full audit readiness, eliminating last-minute budget freezes or missing approvals.",
-        "Audit Compliance: Every action — request, approval, budget commit — is logged automatically, ensuring complete transparency and accountability.",
+      results={[
+        "Reduced approval time from one week to less than two days through dynamic routing and mobile-friendly approvals.",
+        "Delivered real-time budget visibility that prevented overspending and supported proactive financial control.",
+        "Achieved full audit readiness with complete traceability of every request and approval action.",
+        "Improved collaboration between Finance, Procurement, and departmental teams by integrating all communication into one automated workflow.",
       ]}
       technical={[
         {
           title: "Workflow Layer",
           points: [
-            "Power Automate manages approvals and validation",
-            "Conditions handle tier-based routing",
-            "Budget subflows reserve or release funds",
+            "Power Automate handled all approvals, validations, and routing conditions.",
+            "Separate subflows managed fund reservations and releases.",
+            "Conditional logic ensured correct routing based on request value.",
           ],
         },
         {
           title: "Data Layer",
           points: [
-            "Dataverse stores requests, budgets, and statuses",
-            "SharePoint logs approvals and documents",
-            "Document library for attachments",
+            "Dataverse stored all procurement requests, budget records, and approval statuses.",
+            "SharePoint hosted supporting documents and audit logs.",
+            "Document libraries handled attachments and reference files.",
           ],
         },
         {
           title: "Reporting",
           points: [
-            "Power BI tracks approval bottlenecks",
-            "Spending vs planned budgets per department",
-            "Finance dashboards update in real time",
+            "Power BI tracked approval timelines and budget utilisation.",
+            "Finance dashboards compared planned versus actual spending.",
+            "Automated refresh maintained real-time accuracy.",
           ],
         },
         {
           title: "Integrations",
           points: [
-            "Outlook notifications to requestors and approvers",
-            "Form submissions trigger new requests",
-            "Mobile-friendly approvals and tracking",
+            "Outlook notifications informed requestors and approvers instantly.",
+            "Teams provided quick access for approvals and discussions.",
+            "Power Apps supported mobile approvals and progress tracking.",
           ],
         },
       ]}
@@ -98,10 +91,10 @@ export default function ProcurementAutomation() {
         "Dataverse",
         "Power BI",
         "SharePoint",
-        "Outlook Integration",
         "Teams",
+        "Outlook Integration",
       ]}
-      note="Figure: Architecture of the Procurement Automation System — showing validation, approval routing, and budget integration. Diagram illustrates general architecture; tools are interchangeable for demonstration."
+      note="Architecture diagram below illustrates validation, routing, and budget integration. This system demonstrates how low-code automation can transform procurement into a transparent and data-driven process."
     />
   );
 }
