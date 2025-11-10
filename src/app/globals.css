@@ -39,7 +39,7 @@
 
   body {
     @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lora', 'Manrope', sans-serif;
   }
 
   /* Custom scrollbar */
@@ -142,4 +142,24 @@
       transform: translateX(0);
     }
   }
+    /* Correct card pulse animation */
+  @keyframes correctPulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0px rgba(34,197,94,0.6);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(34,197,94,0.8);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0px rgba(34,197,94,0.6);
+    }
+  }
+
+  .animate-correctPulse {
+    animation: correctPulse 0.8s ease-out;
+  }
+
 }

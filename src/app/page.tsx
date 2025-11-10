@@ -30,7 +30,7 @@ const TechIcon = ({ name }: { name: string }) => {
     "Business Intelligence": <BarChart3 className="h-4 w-4" />,
     "GPT-4": <Brain className="h-4 w-4" />,
     "Power Automate": <Workflow className="h-4 w-4" />,
-    "AI Builder": <Brain className="h-4 w-4" />,
+    "AI Agents": <Brain className="h-4 w-4" />,
     Dataverse: <Database className="h-4 w-4" />,
     "Low-Code": <Zap className="h-4 w-4" />,
     "Workflow Automation": <Workflow className="h-4 w-4" />,
@@ -98,19 +98,18 @@ export default function Home() {
     { name: "Machine Learning", icon: <Brain className="h-5 w-5" /> },
     { name: "Dataverse", icon: <Database className="h-5 w-5" /> },
     { name: "SharePoint", icon: <FileText className="h-5 w-5" /> },
-    { name: "AI Builder", icon: <Brain className="h-5 w-5" /> },
-    { name: "Excel", icon: <FileSpreadsheet className="h-5 w-5" /> },
+    { name: "AI Agents", icon: <Brain className="h-5 w-5" /> },
   ];
 
   const automationExamples = [
     "SharePoint capacity monitoring with automated alerts",
-    "Government tender response system using AI document analysis",
-    "Dynamics 365 integration with third-party platforms via HTTP triggers",
-    "Invoice generation workflows with approval routing and budget validation",
-    "Contract metadata extraction and manager approval routing",
-    "Resource allocation optimization matching skills against project requirements",
-    "Timesheet anomaly detection flagging overwork and budget overruns",
+    "Intelligent support ticket routing using priority and category detection",
+    "Automated user onboarding in Microsoft 365 with approval flows and licence assignment",
+    "Vendor invoice reconciliation against purchase orders using AI document processing",
+    "Weekly Power BI snapshot archiving to SharePoint for audit compliance",
+    "Dynamic project status tracking in Dataverse with Teams notifications",
   ];
+
 
   const projects = [
     {
@@ -134,11 +133,10 @@ export default function Home() {
     {
       id: "ai-automation",
       category: "ai",
-      title: "AI Contract Intelligence",
-      description:
-        "Automated contract review with AI document intelligence, skill matching, and resource optimization. Same-day intake vs 2–3 days manual.",
+      title: "AI Resource Allocation System",
+      description: "Intelligent automation that matches project needs with the right people for resource optimisation, and proactive workload monitoring.",
       image: "/ai-automation.png",
-      tags: ["GPT-4", "Power Automate", "AI Builder"],
+      tags: ["GPT-4", "Power Automate", "AI Agent"],
     },
     {
       id: "lowcode",
@@ -155,8 +153,8 @@ export default function Home() {
     selectedWork === "custom"
       ? []
       : selectedWork
-      ? projects.filter((p) => p.category === selectedWork)
-      : projects;
+        ? projects.filter((p) => p.category === selectedWork)
+        : projects;
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-20 space-y-20">
@@ -182,29 +180,27 @@ export default function Home() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="space-y-2"
         >
-          <p className="text-2xl md:text-3xl text-secondary max-w-3xl">
-            Consultant & Automation Specialist
+          <p className="text-md text-secondary max-w-3xl">
+            I bridge business problems with technical solutions using data, AI, and automation.
           </p>
-          <p className="text-lg text-tertiary max-w-2xl">
-            I like to learn, build, and solve problems.
+          <p className="text-md mt-4 text-tertiary max-w-2xl">
+            Consultant & Automation Specialist
           </p>
         </motion.div>
       </section>
 
-      {/* Automation + Skills */}
       <section className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 p-6 rounded-xl border border-custom bg-secondary space-y-4">
-          <h2 className="text-2xl font-bold text-primary">
-            Things I've Automated
-          </h2>
-          <div className="space-y-2">
+        {/* Automation */}
+        <div className="md:col-span-2 p-6 rounded-2xl border border-custom bg-secondary space-y-4 shadow-glass">
+          <h2 className="text-2xl font-bold text-primary">Things I’ve Automated</h2>
+          <ul className="space-y-2 list-none">
             {automationExamples.map((example, i) => (
-              <div key={i} className="flex items-start gap-3 text-secondary text-sm">
-                <span className="text-[var(--accent)] mt-1 flex-shrink-0">•</span>
-                <span>{example}</span>
-              </div>
+              <li key={i} className="flex gap-3 items-start">
+                <span className="text-[var(--accent)] mt-[5px]">•</span>
+                <span className="text-sm text-secondary leading-snug">{example}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="md:col-span-1 p-6 rounded-xl border border-custom bg-secondary space-y-4">
@@ -238,73 +234,80 @@ export default function Home() {
               onClick={() =>
                 setSelectedWork(selectedWork === cap.id ? null : cap.id)
               }
-              className={`p-4 rounded-xl border transition-all text-left ${
-                selectedWork === cap.id
-                  ? "bg-[var(--accent)] border-[var(--accent)] shadow-lg"
-                  : "bg-secondary border-custom hover:border-[var(--accent)]"
-              }`}
+              className={`p-4 rounded-xl border transition-all text-left ${selectedWork === cap.id
+                ? "bg-[var(--accent)] border-[var(--accent)] shadow-lg"
+                : "bg-secondary border-custom hover:border-[var(--accent)]"
+                }`}
             >
               <div
-                className={`mb-2 ${
-                  selectedWork === cap.id ? "text-white" : "text-[var(--accent)]"
-                }`}
+                className={`mb-2 ${selectedWork === cap.id ? "text-white" : "text-[var(--accent)]"
+                  }`}
               >
                 {cap.icon}
               </div>
               <h3
-                className={`font-semibold text-sm mb-1 ${
-                  selectedWork === cap.id ? "text-white" : "text-primary"
-                }`}
+                className={`font-semibold text-sm mb-1 ${selectedWork === cap.id ? "text-white" : "text-primary"
+                  }`}
               >
                 {cap.title}
               </h3>
               <p
-                className={`text-xs ${
-                  selectedWork === cap.id ? "text-white/80" : "text-tertiary"
-                }`}
+                className={`text-xs ${selectedWork === cap.id ? "text-white/80" : "text-tertiary"
+                  }`}
               >
                 {cap.desc}
               </p>
             </button>
-            
+
           ))}
         </div>
-          <p className="text-secondary">
-            These projects showcase different skills and approaches, each chosen
-            for its technical challenge.
-          </p>
+        <p className="text-secondary">
+          These projects showcase different skills and approaches, each chosen
+          for its technical challenge.
+        </p>
       </section>
 
       {/* Projects */}
-      <section className="flex flex-col gap-12">
+
+      {/* ===== PROJECT CARDS ===== */}
+      <section id="projects" className="flex flex-col gap-12">
         {filteredProjects.map((project) => (
-          <Link key={project.id} href={`/${project.id}`} className="group block">
-            <div className="flex flex-col md:flex-row gap-8 items-stretch">
-              <div className="w-full md:w-5/12 relative overflow-hidden rounded-xl border border-custom flex-shrink-0">
-                <div className="aspect-video relative bg-secondary">
+          <Link
+            key={project.id}
+            href={`/${project.id}`}
+            className="group block rounded-3xl overflow-hidden bg-primary border border-custom shadow-glass hover:shadow-xl transition-all hover:-translate-y-1"
+          >
+            <div className="flex flex-col md:flex-row items-stretch">
+              {/* Image */}
+              <div className="w-full md:w-5/12 relative overflow-hidden border-r border-custom">
+                <div className="aspect-video relative rounded-2xl overflow-hidden m-4 bg-tertiary">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  {/* Overlay fade */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
               </div>
 
-              <div className="w-full md:w-7/12 flex flex-col justify-between space-y-4">
+              {/* Details */}
+              <div className="w-full md:w-7/12 p-6 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-3xl font-bold text-primary group-hover:text-[var(--accent)] transition-colors">
+                  <h3 className="text-2xl font-bold text-primary group-hover:text-[var(--accent)] transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-secondary mt-4 leading-relaxed text-md">
+                  <p className="text-secondary mt-3 leading-relaxed text-base">
                     {project.description}
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-2 mt-2">
+
+                <div className="flex flex-wrap gap-2 mt-3">
                   {project.tags.map((tag) => (
                     <div
                       key={tag}
-                      className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-tertiary text-secondary rounded-lg"
+                      className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-tertiary text-secondary rounded-lg border border-custom"
                     >
                       <TechIcon name={tag} />
                       {tag}
@@ -318,10 +321,10 @@ export default function Home() {
       </section>
 
       {/* Custom Solution Info (above game) */}
-      <section className="p-6 rounded-xl border border-custom bg-secondary text-left">
+      <section className="p-6 rounded-xl border border-custom bg-primary text-left">
         <p className="text-lg text-secondary">
           <span className="">Custom Solution:</span>{" "}
-          This portfolio itself is a Next.js website built with React, Tailwind, and Framer Motion.  
+          This portfolio itself is a Next.js website built with React, Tailwind, and Framer Motion.
           Or the game below!
         </p>
       </section>
@@ -330,17 +333,20 @@ export default function Home() {
       <FindMyNumberGame />
 
       {/* Contact Section */}
-      <section id="contact" className="py-12">
-        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
-          <div className="md:w-1/3 space-y-2">
-            <h3 className="text-2xl font-semibold text-primary">Get in Touch</h3>
-            <p className="text-sm text-tertiary flex items-center gap-2">
+      <section
+        id="contact" className="">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 items-center gap-12 px-6">
+          {/* Left side: 1/3 */}
+          <div className="space-y-3 md:col-span-1 text-center md:text-left">
+            <h3 className="text-3xl font-bold text-primary">Get in Touch</h3>
+            <p className="text-sm text-tertiary flex items-center justify-center md:justify-start gap-2">
               <Mail className="h-4 w-4" />
               <span>I’ll respond soon.</span>
             </p>
           </div>
 
-          <div className="flex-1 p-6 rounded-xl border border-custom bg-secondary shadow-glass w-full">
+          {/* Right side: 2/3 */}
+          <div className="md:col-span-2 p-8 rounded-2xl border border-custom bg-secondary/70 shadow-glass w-full">
             <ContactForm />
           </div>
         </div>

@@ -1,25 +1,33 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme/themeprovider";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/footer";
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+// Elegant Cambria-style professional font
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-lora",
+});
 
 export const metadata: Metadata = {
-  title: "Atif: Consultant & Automation Specialist",
-  description: "Power BI specialist and data analyst with expertise in ETL pipelines, automation, and business intelligence.",
+  title: "Atif Khan | Consultant & Automation Specialist",
+  description:
+    "Data analyst and Power BI specialist with expertise in ETL pipelines, automation, and AI-driven business intelligence.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body
+        className={`${lora.variable} font-[var(--font-lora)] bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -27,9 +35,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="min-h-screen">
-            {children}
-          </div>
+          <main className="min-h-screen">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

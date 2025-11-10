@@ -120,7 +120,7 @@ export default function BobsBurgers() {
 
       {/* What I Found */}
       <section className="space-y-6">
-        <h2 className="text-2xl font-bold text-primary">Key Findings</h2>
+        <h2 className="text-2xl font-bold text-primary">Deliverable</h2>
         
         <div className="space-y-4">
           <div className="p-6 rounded-xl border-l-4 border-red-500 bg-secondary">
@@ -133,13 +133,11 @@ export default function BobsBurgers() {
               </span>
             </div>
             <p className="text-secondary mb-3">
-              49-minute average delivery time with lowest order value (£46 avg). Branch is geographically 
-              isolated, causing cross-borough deliveries that kill margins.
+              Geographically isolated branch drives long deliveries and low-value orders, eroding margins.
             </p>
             <div className="p-3 rounded bg-tertiary">
               <p className="text-sm text-secondary">
-                <strong className="text-primary">Recommendation:</strong> Close or relocate. Current location 
-                hemorrhaging money on delivery costs.
+                <strong className="text-primary">Recommendation:</strong> Offer order online, pick up in store.
               </p>
             </div>
           </div>
@@ -154,8 +152,7 @@ export default function BobsBurgers() {
               </span>
             </div>
             <p className="text-secondary mb-3">
-              7-8pm sees 350 orders with only 5 drivers at Westminster. 50-minute delivery times during 
-              peak vs 28 minutes off-peak.
+              Peak hours (7–8pm) overloads drivers, pushing delivery times to 50 mins vs 30 off-peak.
             </p>
             <div className="p-3 rounded bg-tertiary">
               <p className="text-sm text-secondary">
@@ -175,13 +172,12 @@ export default function BobsBurgers() {
               </span>
             </div>
             <p className="text-secondary mb-3">
-              Highest order value (£50 avg) with strong delivery metrics. Currently limited radius means 
-              leaving money on the table.
+              Highest order value (£64 avg) with solid delivery, but limited radius caps growth.
             </p>
             <div className="p-3 rounded bg-tertiary">
               <p className="text-sm text-secondary">
-                <strong className="text-primary">Recommendation:</strong> Expand delivery zone by 4km. 
-                Estimated +£5,200/month revenue based on current order density.
+                <strong className="text-primary">Recommendation:</strong> Expand delivery zone by 1km. 
+                Estimated +£5,000/month revenue based on current order density.
               </p>
             </div>
           </div>
@@ -248,26 +244,7 @@ export default function BobsBurgers() {
       </section>
 
       {/* Impact */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold text-primary">Business Value</h2>
-        
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-xl bg-secondary border border-custom text-center">
-            <div className="text-3xl font-bold text-[var(--accent)] mb-2">£5.2K</div>
-            <p className="text-sm text-secondary">Monthly revenue opportunity identified</p>
-          </div>
-
-          <div className="p-5 rounded-xl bg-secondary border border-custom text-center">
-            <div className="text-3xl font-bold text-[var(--accent)] mb-2">22 min</div>
-            <p className="text-sm text-secondary">Potential delivery time reduction</p>
-          </div>
-
-          <div className="p-5 rounded-xl bg-secondary border border-custom text-center">
-            <div className="text-3xl font-bold text-[var(--accent)] mb-2">3</div>
-            <p className="text-sm text-secondary">Actionable recommendations</p>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Tech Stack */}
       <section className="space-y-4">
