@@ -45,45 +45,51 @@ export default function ContactForm() {
   if (!mounted) return null;
 
   return (
-     <form onSubmit={onSubmit} className="space-y-4 w-full md:w-[95%] mx-auto md:mx-0">
+    <form
+      onSubmit={onSubmit}
+      className="space-y-5 w-full md:w-[95%] mx-auto md:mx-0"
+    >
+      {/* Input Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
           name="name"
           required
-          className="w-full px-4 py-3 bg-[var(--bg-primary)]/70 dark:bg-[var(--bg-secondary)]/60 border border-custom rounded-xl shadow-glass focus:ring-2 focus:ring-[var(--accent)] outline-none transition-all placeholder:text-tertiary"
           placeholder="Name"
+          className="w-full px-4 py-3 rounded-xl border border-custom bg-secondary focus:ring-2 focus:ring-[var(--accent)] text-primary placeholder:text-tertiary outline-none transition-all shadow-glass"
         />
         <input
           type="email"
           name="email"
           required
-          className="w-full px-4 py-3 bg-[var(--bg-primary)]/70 dark:bg-[var(--bg-secondary)]/60 border border-custom rounded-xl shadow-glass focus:ring-2 focus:ring-[var(--accent)] outline-none transition-all placeholder:text-tertiary"
           placeholder="Email"
+          className="w-full px-4 py-3 rounded-xl border border-custom bg-secondary focus:ring-2 focus:ring-[var(--accent)] text-primary placeholder:text-tertiary outline-none transition-all shadow-glass"
         />
       </div>
 
+      {/* Message Textarea */}
       <textarea
         name="message"
         required
         rows={4}
-        className="w-full px-4 py-3 bg-[var(--bg-primary)]/70 dark:bg-[var(--bg-secondary)]/60 border border-custom rounded-xl shadow-glass focus:ring-2 focus:ring-[var(--accent)] outline-none transition-all placeholder:text-tertiary resize-none"
         placeholder="Message"
+        className="w-full px-4 py-3 rounded-xl border border-custom bg-secondary focus:ring-2 focus:ring-[var(--accent)] text-primary placeholder:text-tertiary outline-none transition-all resize-none shadow-glass"
       />
 
+      {/* Submit Button */}
       <button
         type="submit"
-        disabled={result === "Sending..."}
-        className="w-full px-8 py-3 rounded-xl bg-[var(--accent)] text-white font-semibold hover:opacity-90 transition-all disabled:opacity-50 shadow-glass"
+        disabled={result === 'Sending...'}
+        className="w-full py-3 font-semibold rounded-xl bg-[var(--accent)] text-white hover:opacity-90 transition-all disabled:opacity-50 shadow-glass"
       >
-        {result === "Sending..." ? "Sending..." : "Send"}
+        {result === 'Sending...' ? 'Sending...' : 'Send'}
       </button>
 
+      {/* Result/Error */}
       {(result || error) && (
         <p
-          className={`text-center text-sm font-medium ${
-            error ? "text-red-500" : "text-[var(--accent)]"
-          }`}
+          className={`text-center text-sm font-medium ${error ? 'text-red-500' : 'text-[var(--accent)]'
+            }`}
         >
           {error || result}
         </p>

@@ -12,7 +12,7 @@
     overflow-x: hidden;
   }
 
-  /* ChatGPT/Claude-inspired color scheme */
+  /* LIGHT THEME (default) */
   :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f7f7f8;
@@ -23,18 +23,47 @@
     --border: #e5e5e5;
     --accent: #2563eb;
     --accent-hover: #1d4ed8;
+
+    /* Portfolio specific colors (light mode) */
+    --portfolio-bg: #f8fafc;
+    --portfolio-bg-gradient-from: #f0f4ff;
+    --portfolio-bg-gradient-via: #f9fafb;
+    --portfolio-bg-gradient-to: #eaf2ff;
+    --portfolio-text-primary: #0d0d0d;
+    --portfolio-text-secondary: #444;
+    --portfolio-text-tertiary: #666;
+    --portfolio-accent: #7c3aed;
+    --portfolio-accent-hover: #6d28d9;
+    --portfolio-border: rgba(0, 0, 0, 0.1);
+    --portfolio-card-bg: rgba(255, 255, 255, 0.6);
+    --portfolio-card-border: rgba(0, 0, 0, 0.05);
   }
 
+  /* DARK THEME */
   .dark {
-    --bg-primary: #212121;
-    --bg-secondary: #2f2f2f;
-    --bg-tertiary: #3f3f3f;
-    --text-primary: #ececec;
-    --text-secondary: #c5c5d0;
-    --text-tertiary: #9b9ba5;
-    --border: #4e4e4e;
-    --accent: #3b82f6;
-    --accent-hover: #60a5fa;
+    --bg-primary: #020617;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
+    --text-primary: #ffffff;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #64748b;
+    --border: rgba(255, 255, 255, 0.1);
+    --accent: #a855f7;
+    --accent-hover: #9333ea;
+
+    /* Portfolio-specific (dark mode) */
+    --portfolio-bg: #020617;
+    --portfolio-bg-gradient-from: #020617;
+    --portfolio-bg-gradient-via: #0f172a;
+    --portfolio-bg-gradient-to: #020617;
+    --portfolio-text-primary: #ffffff;
+    --portfolio-text-secondary: #cbd5e1;
+    --portfolio-text-tertiary: #64748b;
+    --portfolio-accent: #a855f7;
+    --portfolio-accent-hover: #9333ea;
+    --portfolio-border: rgba(255, 255, 255, 0.1);
+    --portfolio-card-bg: rgba(255, 255, 255, 0.05);
+    --portfolio-card-border: rgba(255, 255, 255, 0.1);
   }
 
   body {
@@ -60,15 +89,271 @@
   }
 }
 
+@layer components {
+
+  /* Portfolio Layout */
+  .portfolio-container {
+    @apply relative min-h-screen;
+    background: linear-gradient(to bottom right, var(--portfolio-bg-gradient-from), var(--portfolio-bg-gradient-via), var(--portfolio-bg-gradient-to));
+  }
+
+  .portfolio-content {
+    @apply relative z-10 max-w-6xl mx-auto px-6 py-20 space-y-20;
+  }
+
+  /* Hero Section */
+  .hero-title {
+    @apply text-7xl md:text-8xl lg:text-9xl font-bold leading-none;
+    color: var(--portfolio-text-primary);
+  }
+
+  .hero-cursor {
+    @apply inline-block w-2 h-20 md:h-24 lg:h-32 ml-2 align-middle;
+    background-color: var(--portfolio-text-primary);
+  }
+
+  .hero-subtitle {
+    @apply text-base max-w-3xl;
+    color: var(--portfolio-text-secondary);
+  }
+
+  .hero-role {
+    @apply text-base mt-4 max-w-2xl;
+    color: var(--portfolio-text-tertiary);
+  }
+
+  /* Cards */
+  .portfolio-card {
+    @apply p-6 rounded-2xl border backdrop-blur-sm space-y-4;
+    background-color: var(--portfolio-card-bg);
+    border-color: var(--portfolio-card-border);
+  }
+
+  .portfolio-card-title {
+    @apply text-2xl font-bold;
+    color: var(--portfolio-text-primary);
+  }
+
+  /* Section Titles */
+  .section-title {
+    @apply text-3xl font-bold;
+    color: var(--portfolio-text-primary);
+  }
+
+  /* Automation List */
+  .automation-list {
+    @apply list-disc pl-6 space-y-2;
+  }
+
+  .automation-list li {
+    @apply text-sm leading-relaxed transition-colors;
+    color: var(--portfolio-text-secondary);
+  }
+
+  .automation-list li:hover {
+    color: var(--portfolio-text-primary);
+  }
+
+  .automation-list::marker {
+    color: var(--portfolio-accent);
+  }
+
+  /* Skills */
+  .skill-tag {
+    @apply flex items-center gap-2 px-3 py-1.5 rounded-lg border;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .skill-icon {
+    color: var(--portfolio-accent);
+  }
+
+  .skill-name {
+    @apply text-xs font-medium;
+    color: var(--portfolio-text-primary);
+  }
+
+  /* Capability Buttons */
+  .capability-btn {
+    @apply p-4 rounded-xl border transition-all text-left;
+    background-color: var(--portfolio-card-bg);
+    border-color: var(--portfolio-card-border);
+  }
+
+  .capability-btn:hover {
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  .capability-btn.active {
+    @apply shadow-lg;
+    background-color: var(--portfolio-accent);
+    border-color: var(--portfolio-accent);
+  }
+
+  .capability-icon {
+    @apply mb-2;
+    color: var(--portfolio-accent);
+  }
+
+  .capability-btn.active .capability-icon {
+    color: var(--portfolio-text-primary);
+  }
+
+  .capability-title {
+    @apply font-semibold text-sm mb-1;
+    color: var(--portfolio-text-primary);
+  }
+
+  .capability-desc {
+    @apply text-xs;
+    color: var(--portfolio-text-tertiary);
+  }
+
+  .capability-btn.active .capability-desc {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .section-description {
+    color: var(--portfolio-text-tertiary);
+  }
+
+  /* Project Cards */
+  .project-card {
+    @apply relative rounded-3xl overflow-hidden backdrop-blur-sm border transition-all duration-500;
+    background-color: var(--portfolio-card-bg);
+    border-color: var(--portfolio-card-border);
+  }
+
+  .project-card:hover {
+    @apply scale-[1.02];
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .project-gradient {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+  }
+
+  .project-card:hover .project-gradient {
+    @apply opacity-100;
+  }
+
+  .project-gradient-blue {
+    background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+  }
+
+  .project-gradient-purple {
+    background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+  }
+
+  .project-gradient-orange {
+    background: linear-gradient(to bottom right, rgba(249, 115, 22, 0.2), rgba(239, 68, 68, 0.2));
+  }
+
+  .project-gradient-green {
+    background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.2));
+  }
+
+  .project-content {
+    @apply relative p-8 md:p-12;
+  }
+
+  .project-title {
+    @apply text-3xl md:text-4xl font-bold transition-colors;
+    color: var(--portfolio-text-primary);
+  }
+
+  .project-description {
+    @apply text-sm max-w-xl leading-relaxed;
+    color: var(--portfolio-text-secondary);
+  }
+
+  .project-tag {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border backdrop-blur-sm text-secondary transition-all;
+    background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  .project-tag svg {
+    @apply text-[var(--accent)];
+  }
+
+ 
+  .project-image-container {
+    @apply w-full md:w-80 h-64 rounded-2xl border flex items-center justify-center overflow-hidden;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-color: var(--portfolio-card-border);
+  }
+
+  .project-image {
+    @apply w-full h-full object-cover opacity-70 transition-opacity duration-500;
+  }
+
+  .project-card:hover .project-image {
+    @apply opacity-90;
+  }
+
+  /* Custom Solution */
+  .custom-solution-card {
+    @apply p-6 rounded-xl border backdrop-blur-sm text-left;
+    background-color: var(--portfolio-card-bg);
+    border-color: var(--portfolio-card-border);
+  }
+
+  .custom-solution-text {
+    @apply text-lg;
+    color: var(--portfolio-text-secondary);
+  }
+
+  .custom-solution-highlight {
+    @apply font-semibold;
+    color: var(--portfolio-text-primary);
+  }
+
+  /* Contact Section */
+  .contact-title {
+    @apply text-3xl font-bold;
+    color: var(--portfolio-text-primary);
+  }
+
+  .contact-subtitle {
+    @apply text-sm flex items-center justify-center md:justify-start gap-2;
+    color: var(--portfolio-text-tertiary);
+  }
+
+  .contact-form-container {
+    @apply p-8 rounded-2xl border backdrop-blur-sm w-full;
+    background-color: var(--portfolio-card-bg);
+    border-color: var(--portfolio-card-border);
+  }
+
+  /* Background Orbs */
+  .orb-purple {
+    @apply absolute w-96 h-96 rounded-full blur-3xl;
+    background-color: rgba(168, 85, 247, 0.3);
+  }
+
+  .orb-blue {
+    @apply absolute top-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse;
+    background-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .orb-cyan {
+    @apply absolute bottom-1/4 left-1/3 w-96 h-96 rounded-full blur-3xl animate-pulse;
+    background-color: rgba(6, 182, 212, 0.2);
+    animation-delay: 1s;
+  }
+}
+
 @layer utilities {
   .text-primary {
     color: var(--text-primary);
   }
-  
+
   .text-secondary {
     color: var(--text-secondary);
   }
-  
+
   .text-tertiary {
     color: var(--text-tertiary);
   }
@@ -107,6 +392,7 @@
       opacity: 0;
       transform: translateY(10px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -122,6 +408,7 @@
       opacity: 0;
       transform: translateX(-30px);
     }
+
     to {
       opacity: 1;
       transform: translateX(0);
@@ -137,29 +424,52 @@
       opacity: 0;
       transform: translateX(30px);
     }
+
     to {
       opacity: 1;
       transform: translateX(0);
     }
   }
-    /* Correct card pulse animation */
+
+  /* Correct card pulse animation */
   @keyframes correctPulse {
     0% {
       transform: scale(1);
-      box-shadow: 0 0 0px rgba(34,197,94,0.6);
+      box-shadow: 0 0 0px rgba(34, 197, 94, 0.6);
     }
+
     50% {
       transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(34,197,94,0.8);
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
     }
+
     100% {
       transform: scale(1);
-      box-shadow: 0 0 0px rgba(34,197,94,0.6);
+      box-shadow: 0 0 0px rgba(34, 197, 94, 0.6);
     }
   }
 
   .animate-correctPulse {
     animation: correctPulse 0.8s ease-out;
   }
+
+  /* Purple arrow bullets for technical lists */
+  .tech-list {
+    @apply space-y-2 text-sm text-secondary pl-4 relative;
+    list-style: none;
+  }
+
+  .tech-list li {
+    @apply relative pl-5;
+  }
+
+  .tech-list li::before {
+    content: "▶";
+    @apply absolute left-0 text-[10px];
+    color: var(--portfolio-accent);
+    /* your purple accent */
+    top: 2px;
+  }
+
 
 }

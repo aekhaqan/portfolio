@@ -2,31 +2,30 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-secondary)]">
-      <div className="max-w-6xl mx-auto px-6 py-10 text-center space-y-6">
+    <footer className="border-t border-custom bg-secondary/40 backdrop-blur-md text-center py-10">
+      <div className="max-w-6xl mx-auto space-y-6 px-6">
         {/* Name / Tagline */}
         <div>
-          <h3 className="text-xl font-semibold text-[var(--text-primary)]">
-            Atif Khan
-          </h3>
-          <p className="text-sm text-[var(--text-tertiary)]">
+          <h3 className="text-xl font-semibold text-primary">Atif Khan</h3>
+          <p className="text-sm text-tertiary">
             Consultant · Power BI · Automation & AI
           </p>
         </div>
 
-        {/* Contact */}
+        {/* Contact Links */}
         <div className="flex items-center justify-center gap-6">
           <a
             href="mailto:atifmkhan10@gmail.com"
-            className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors underline-offset-4 hover:underline"
+            className="text-sm text-secondary hover:text-[var(--accent)] transition-colors underline-offset-4 hover:underline"
           >
             atifmkhan10@gmail.com
           </a>
+
           <a
             href="https://linkedin.com/in/atifmkhan9"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-secondary hover:text-[var(--accent)] transition-colors"
           >
             <svg
               className="h-4 w-4"
@@ -38,8 +37,6 @@ export default function Footer() {
             LinkedIn
           </a>
         </div>
-
-       
       </div>
     </footer>
   );
