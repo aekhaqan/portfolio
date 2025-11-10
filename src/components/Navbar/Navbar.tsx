@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
 import { Lightbulb, Menu, X } from "lucide-react";
 
 export default function Navbar() {
@@ -9,6 +10,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -17,7 +20,33 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 🔹 Scroll to projects section if hash exists on load
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#projects") {
+      const section = document.getElementById("projects");
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: "smooth" });
+        }, 300); // slight delay for mount/render
+      }
+    }
+  }, []);
+
   if (!mounted) return null;
+
+  // 🔹 Handles home/projects navigation
+  const handleHomeClick = () => {
+    if (pathname === "/") {
+      // Already on homepage → scroll to projects section
+      const projectsSection = document.getElementById("projects");
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // Not on homepage → navigate to homepage + #projects
+      router.push("/#projects");
+    }
+  };
 
   return (
     <>
@@ -29,12 +58,12 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Left: Home */}
+          {/* Left: Home / Projects Scroll */}
           <button
-            onClick={() => (window.location.href = "/")}
+            onClick={handleHomeClick}
             className="text-sm font-semibold tracking-wide hover:opacity-80 transition-opacity"
           >
-            Home
+            Projects
           </button>
 
           {/* Center: Email */}
@@ -69,7 +98,7 @@ export default function Navbar() {
               </div>
             </button>
 
-            {/* Mobile Menu Toggle (optional future use) */}
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
@@ -95,7 +124,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Optional mobile menu overlay (currently blank) */}
+      {/* Optional mobile menu overlay */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
