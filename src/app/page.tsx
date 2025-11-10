@@ -173,7 +173,7 @@ export default function Home() {
     {
       id: "game",
       category: "game",
-      title: "Interactive Portfolio & Game",
+      title: "This Portfolio & The Game Below",
       description:
         "This Next.js website you're viewing right now, plus the fun little number game below. Built with modern React patterns and smooth animations.",
       image: null,
@@ -314,7 +314,7 @@ export default function Home() {
                   <div className="project-content relative flex flex-col md:flex-row overflow-hidden rounded-2xl shadow-glass">
                     {/* -------- TEXT SIDE -------- */}
                     <div className="flex flex-col justify-start flex-1 p-4 md:p-6 space-y-8">
-                      <h3 className="project-title text-xl md:text-2xl font-semibold text-primary leading-snug">
+                      <h3 className="project-title text-xl md:text-3xl text-primary leading-snug">
                         {project.title}
                       </h3>
                       <p className="project-description text-sm md:text-base text-secondary leading-relaxed">
