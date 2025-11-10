@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,8 +13,6 @@ import {
   Workflow,
   Brain,
   Code,
-  TrendingUp,
-  Gamepad2,
   Server,
   Cloud,
   Cpu,
@@ -22,7 +20,7 @@ import {
 import ContactForm from "@/components/Form/form";
 import FindMyNumberGame from "@/components/Game/Game";
 
-// Tech icon mapping
+// ---------------- TECH ICON MAP ----------------
 const TechIcon = ({ name }: { name: string }) => {
   const icons: Record<string, React.ReactElement> = {
     "Power BI": <BarChart3 className="h-4 w-4" />,
@@ -40,13 +38,19 @@ const TechIcon = ({ name }: { name: string }) => {
   return icons[name] || <Zap className="h-4 w-4" />;
 };
 
+// ---------------- MAIN COMPONENT ----------------
 export default function Home() {
   const [displayText, setDisplayText] = useState("");
   const [selectedWork, setSelectedWork] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
   const text = "Atif Khan";
   const typingSpeed = 100;
 
+  const projectsRef = useRef<HTMLDivElement>(null);
+  const gameRef = useRef<HTMLDivElement>(null);
+
+  // Typewriter name animation
   useEffect(() => {
     let i = 0;
     const timer = setInterval(() => {
@@ -57,6 +61,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  // Parallax mouse effect for glowing background orbs
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -65,7 +70,7 @@ export default function Home() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Core Capabilities
+  // ---------------- CAPABILITIES ----------------
   const capabilities = [
     {
       id: "etl",
@@ -99,7 +104,7 @@ export default function Home() {
     },
   ];
 
-  // Technical Stack
+  // ---------------- SKILLS ----------------
   const skills = [
     { name: "Power BI", icon: <BarChart3 className="h-5 w-5" /> },
     { name: "Microsoft Fabric", icon: <Cloud className="h-5 w-5" /> },
@@ -123,6 +128,7 @@ export default function Home() {
     "Dynamic project status tracking in Dataverse with Teams notifications",
   ];
 
+  // ---------------- PROJECTS ----------------
   const projects = [
     {
       id: "ecommerce-etl",
@@ -132,7 +138,7 @@ export default function Home() {
         "End-to-end data pipeline transforming fragmented Excel data into enterprise-grade analytics. Star schema design with 30+ DAX measures.",
       image: "/ecommerce1.png",
       tags: ["Power BI", "ETL", "Data Modeling"],
-      gradientClass: "project-gradient-blue"
+      gradientClass: "project-gradient-blue",
     },
     {
       id: "bobs-bi",
@@ -142,16 +148,17 @@ export default function Home() {
         "Extracted actionable insights from minimal data identified £5,200/month revenue opportunity and operational bottlenecks.",
       image: "/bobs.png",
       tags: ["Power BI", "DAX", "Business Intelligence"],
-      gradientClass: "project-gradient-purple"
+      gradientClass: "project-gradient-purple",
     },
     {
       id: "ai-automation",
       category: "ai",
       title: "AI Resource Allocation System",
-      description: "Intelligent automation that matches project needs with the right people for resource optimisation, and proactive workload monitoring.",
+      description:
+        "Intelligent automation that matches project needs with the right people for resource optimisation, and proactive workload monitoring.",
       image: "/ai-automation.png",
       tags: ["GPT-4", "Power Automate", "AI Agent"],
-      gradientClass: "project-gradient-orange"
+      gradientClass: "project-gradient-orange",
     },
     {
       id: "lowcode",
@@ -161,17 +168,17 @@ export default function Home() {
         "Dynamic approval routing with real-time budget tracking. Approval times reduced from 7 days to 1–2 days.",
       image: "/lowcode.png",
       tags: ["Power Automate", "Dataverse", "Low-Code"],
-      gradientClass: "project-gradient-green"
+      gradientClass: "project-gradient-green",
     },
     {
-      id: "custom-solution",
-      category: "custom",
+      id: "game",
+      category: "game",
       title: "Interactive Portfolio & Game",
       description:
         "This Next.js website you're viewing right now, plus the fun little number game below. Built with modern React patterns and smooth animations.",
       image: null,
       tags: ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
-      gradientClass: "project-gradient-purple"
+      gradientClass: "project-gradient-purple",
     },
   ];
 
@@ -179,16 +186,32 @@ export default function Home() {
     ? projects.filter((p) => p.category === selectedWork)
     : projects;
 
+  // ---------------- HANDLERS ----------------
+  const handleCapabilityClick = (capId: string) => {
+    const newSelection = selectedWork === capId ? null : capId;
+    setSelectedWork(newSelection);
+
+    setTimeout(() => {
+      if (projectsRef.current && newSelection) {
+        projectsRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 150);
+  };
+
+  // ---------------- RETURN ----------------
   return (
     <main className="portfolio-container">
-      {/* Animated gradient orbs */}
+      {/* Floating gradient orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           className="orb-purple"
           style={{
             left: `${mousePos.x / 20}px`,
             top: `${mousePos.y / 20}px`,
-            transition: 'all 0.3s ease-out'
+            transition: "all 0.3s ease-out",
           }}
         />
         <div className="orb-blue" />
@@ -196,8 +219,11 @@ export default function Home() {
       </div>
 
       <div className="portfolio-content">
-        {/* Hero Section */}
-        <section className="min-h-[50vh] flex flex-col justify-center space-y-8">
+        {/* ---------------- HERO ---------------- */}
+        <section
+          data-no-animation
+          className="min-h-[50vh] flex flex-col justify-center space-y-8"
+        >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -219,24 +245,20 @@ export default function Home() {
             className="space-y-2"
           >
             <p className="hero-subtitle">
-              I build intelligent systems that automate decisions, surface insight, and deliver measurable business impact.
+              I build intelligent systems that automate decisions, surface
+              insight, and deliver measurable business impact.
             </p>
-            <p className="hero-role">
-              AI Automation & BI Consultant
-            </p>
-
+            <p className="hero-role">AI Automation & BI Consultant</p>
           </motion.div>
         </section>
 
+        {/* ---------------- AUTOMATION + SKILLS ---------------- */}
         <section className="grid md:grid-cols-3 gap-6">
-          {/* Automation */}
           <div className="md:col-span-2 portfolio-card">
             <h2 className="portfolio-card-title">Automation Highlights</h2>
-            <ul className="automation-list">
+            <ul className="tech-list">
               {automationExamples.map((example, i) => (
-                <li key={i}>
-                  {example}
-                </li>
+                <li key={i}>{example}</li>
               ))}
             </ul>
           </div>
@@ -247,113 +269,138 @@ export default function Home() {
               {skills.map((skill) => (
                 <div key={skill.name} className="skill-tag">
                   <span className="skill-icon">{skill.icon}</span>
-                  <span className="skill-name">
-                    {skill.name}
-                  </span>
+                  <span className="skill-name">{skill.name}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Selected Work Section */}
+        {/* ---------------- SELECTED WORK ---------------- */}
         <section className="space-y-2">
-          <div className="space-y-2">
-            <h2 className="section-title">Selected Work</h2>
-          </div>
+          <h2 className="section-title">Selected Work</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {capabilities.map((cap) => (
               <button
                 key={cap.id}
-                onClick={() =>
-                  setSelectedWork(selectedWork === cap.id ? null : cap.id)
-                }
-                className={`capability-btn ${selectedWork === cap.id ? 'active' : ''}`}
+                onClick={() => handleCapabilityClick(cap.id)}
+                className={`capability-btn ${
+                  selectedWork === cap.id ? "active" : ""
+                }`}
               >
-                <div className="capability-icon">
-                  {cap.icon}
-                </div>
-                <h3 className="capability-title">
-                  {cap.title}
-                </h3>
-                <p className="capability-desc">
-                  {cap.desc}
-                </p>
+                <div className="capability-icon">{cap.icon}</div>
+                <h3 className="capability-title">{cap.title}</h3>
+                <p className="capability-desc">{cap.desc}</p>
               </button>
             ))}
           </div>
+
           <p className="section-description">
             These projects showcase different skills and approaches, each chosen
             for its technical challenge.
           </p>
         </section>
 
-        {/* Projects */}
-        <section id="projects" className="space-y-2">
+        {/* ---------------- PROJECTS ---------------- */}
+        <section id="projects" ref={projectsRef} className="space-y-2 scroll-mt-24">
           <div className="grid gap-8">
-            {filteredProjects.map((project, i) => (
-              <Link
-                key={project.id}
-                href={`/${project.id}`}
-                className="project-card group"
-              >
-                <div className={`project-gradient ${project.gradientClass}`} />
+            {filteredProjects.map((project) => {
+              const isGameProject = project.id === "game";
 
-                <div className="project-content">
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="flex-1 space-y-6">
-                      <div className="space-y-4">
-                        <h3 className="project-title">
-                          {project.title}
-                        </h3>
-                        <p className=" project-description ">
-                          {project.description}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                          <div key={tag} className="project-tag mt-16">
-                            <TechIcon name={tag} />
-                            {tag}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="project-image-container">
-                      {project.image ? (
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          width={300}
-                          height={150}
-                          className="project-image"
-                        />
-                      ) : (
-                        <div className="flex flex-col items-center justify-center h-full text-center px-6">
-                          <Code className="h-16 w-16 mb-4" style={{ color: 'var(--portfolio-accent)' }} />
-                          <p className="text-sm font-semibold" style={{ color: 'var(--portfolio-text-primary)' }}>
-                            This Next.js Website
-                          </p>
-                          <p className="text-xs mt-2" style={{ color: 'var(--portfolio-text-tertiary)' }}>
-                            + Game Below
+              const CardInner = (
+                <>
+                  <div className={`project-gradient ${project.gradientClass}`} />
+                  <div className="project-content">
+                    <div className="flex flex-col md:flex-row gap-8">
+                      <div className="flex-1 space-y-6">
+                        <div className="space-y-4">
+                          <h3 className="project-title">{project.title}</h3>
+                          <p className="project-description">
+                            {project.description}
                           </p>
                         </div>
-                      )}
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <div key={tag} className="project-tag mt-16">
+                              <TechIcon name={tag} />
+                              {tag}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="project-image-container">
+                        {project.image ? (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            width={300}
+                            height={150}
+                            className="project-image"
+                          />
+                        ) : (
+                          <div className="flex flex-col items-center justify-center h-full text-center px-6">
+                            <Code
+                              className="h-16 w-16 mb-4"
+                              style={{ color: "var(--portfolio-accent)" }}
+                            />
+                            <p
+                              className="text-sm font-semibold"
+                              style={{
+                                color: "var(--portfolio-text-primary)",
+                              }}
+                            >
+                              This Next.js Website
+                            </p>
+                            <p
+                              className="text-xs mt-2"
+                              style={{
+                                color: "var(--portfolio-text-tertiary)",
+                              }}
+                            >
+                              + Game Below
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </>
+              );
+
+              return isGameProject ? (
+                <button
+                  key={project.id}
+                  onClick={() =>
+                    gameRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    })
+                  }
+                  className="project-card group"
+                >
+                  {CardInner}
+                </button>
+              ) : (
+                <Link
+                  key={project.id}
+                  href={`/${project.id}`}
+                  className="project-card group"
+                >
+                  {CardInner}
+                </Link>
+              );
+            })}
           </div>
         </section>
 
-        {/* Game */}
-        <FindMyNumberGame />
+        {/* ---------------- GAME ---------------- */}
+        <section id="game" ref={gameRef} className="scroll-mt-24">
+          <FindMyNumberGame />
+        </section>
 
-        {/* Contact Section */}
+        {/* ---------------- CONTACT ---------------- */}
         <section id="contact">
           <div className="max-w-5xl mx-auto grid md:grid-cols-3 items-center gap-12 px-6">
             <div className="space-y-3 md:col-span-1 text-center md:text-left">

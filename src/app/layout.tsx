@@ -4,18 +4,22 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Theme/themeprovider";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/footer";
+import ClientLayoutEffects from "@/components/Theme/ClientLayoutEffects";
 
-// Elegant Cambria-style professional font
+// Font
 const lora = Lora({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-lora",
 });
 
+// ✅ This controls tab text, favicon, social info, etc.
 export const metadata: Metadata = {
-  title: "Atif Khan | Consultant & Automation Specialist",
-  description:
-    "Data analyst and Power BI specialist with expertise in ETL pipelines, automation, and AI-driven business intelligence.",
+  title: "Atif Khan",
+  description: "Consultant and Power BI specialist with expertise in ETL pipelines, automation, and AI-driven business intelligence.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -28,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${lora.variable} font-[var(--font-lora)] bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300`}
       >
+        {/* Theme Provider must be inside the body */}
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -35,7 +40,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main className="min-h-screen">
+            <ClientLayoutEffects>{children}</ClientLayoutEffects>
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
