@@ -16,6 +16,7 @@ import {
   Server,
   Cloud,
   Cpu,
+  Medal,
 } from "lucide-react";
 import ContactForm from "@/components/Form/form";
 import FindMyNumberGame from "@/components/Game/Game";
@@ -221,8 +222,9 @@ export default function Home() {
         {/* ---------------- HERO ---------------- */}
         <section
           data-no-animation
-          className="min-h-[50vh] flex flex-col justify-center space-y-8"
+          className="min-h-[50vh] flex flex-col justify-center space-y-6 items-start"
         >
+          {/* NAME */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -237,17 +239,29 @@ export default function Home() {
             />
           </motion.h1>
 
+          {/* SUBTITLE */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="space-y-2"
           >
-            <p className="hero-subtitle">
-              I build intelligent systems that automate decisions, surface
-              insight, and deliver measurable business impact.
+            <p className="hero-subtitle max-w-xl">
+              I build intelligent systems that automate decisions 
+              and deliver business impact.
             </p>
-            <p className="hero-role">AI Automation & BI Consultant</p>
+            <p className="hero-role">AI Automations & BI Consultant</p>
+
+            {/* Certification Badge */}
+            <a
+              href="https://learn.microsoft.com/en-us/users/atifkhan-4617/transcript/dejzji355y46mkq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-2.5 py-[3px] rounded-md bg-white text-[var(--accent)] text-[11px] md:text-xs font-medium"
+            >
+              <Medal className="h-3.5 w-3.5 text-[var(--accent)]" />
+              <span>Certified</span>
+            </a>
           </motion.div>
         </section>
 
