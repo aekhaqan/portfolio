@@ -192,16 +192,19 @@ export default function Home() {
       <section className="grid md:grid-cols-3 gap-6">
         {/* Automation */}
         <div className="md:col-span-2 p-6 rounded-2xl border border-custom bg-secondary space-y-4 shadow-glass">
-          <h2 className="text-2xl font-bold text-primary">Things I’ve Automated</h2>
-          <ul className="space-y-2 list-none">
+          <h2 className="text-2xl font-bold text-primary">Automation Highlights</h2>
+          <ul className="list-disc pl-6 space-y-2 marker:text-[var(--accent)]">
             {automationExamples.map((example, i) => (
-              <li key={i} className="flex gap-3 items-start">
-                <span className="text-[var(--accent)] mt-[5px]">•</span>
-                <span className="text-sm text-secondary leading-snug">{example}</span>
+              <li
+                key={i}
+                className="text-sm text-secondary leading-relaxed transition-colors hover:text-primary"
+              >
+                {example}
               </li>
             ))}
           </ul>
         </div>
+
 
         <div className="md:col-span-1 p-6 rounded-xl border border-custom bg-secondary space-y-4">
           <h2 className="text-2xl font-bold text-primary">Skills & Tools</h2>
@@ -298,7 +301,7 @@ export default function Home() {
                   <h3 className="text-2xl font-bold text-primary group-hover:text-[var(--accent)] transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-secondary mt-3 leading-relaxed text-base">
+                  <p className="text-secondary mt-3 leading-relaxed text-sm">
                     {project.description}
                   </p>
                 </div>
