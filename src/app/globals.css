@@ -12,31 +12,31 @@
     overflow-x: hidden;
   }
 
-  /* LIGHT THEME (default) */
+  /* LIGHT THEME (default) - Claude-inspired soft warm tones */
   :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f7f7f8;
-    --bg-tertiary: #ececf1;
-    --text-primary: #0d0d0d;
-    --text-secondary: #676767;
-    --text-tertiary: #8e8e8e;
-    --border: #e5e5e5;
+    --bg-primary: #f4f4f4;
+    --bg-secondary: #e8e8e8;
+    --bg-tertiary: #dedede;
+    --text-primary: #2c2c2c;
+    --text-secondary: #5a5a5a;
+    --text-tertiary: #7a7a7a;
+    --border: #d4d4d4;
     --accent: #2563eb;
     --accent-hover: #1d4ed8;
 
     /* Portfolio specific colors (light mode) */
-    --portfolio-bg: #f8fafc;
-    --portfolio-bg-gradient-from: #f0f4ff;
-    --portfolio-bg-gradient-via: #f9fafb;
-    --portfolio-bg-gradient-to: #eaf2ff;
-    --portfolio-text-primary: #0d0d0d;
-    --portfolio-text-secondary: #444;
-    --portfolio-text-tertiary: #666;
+    --portfolio-bg: #f4f4f4;
+    --portfolio-bg-gradient-from: #ececec;
+    --portfolio-bg-gradient-via: #f4f4f4;
+    --portfolio-bg-gradient-to: #e8e8e8;
+    --portfolio-text-primary: #2c2c2c;
+    --portfolio-text-secondary: #5a5a5a;
+    --portfolio-text-tertiary: #7a7a7a;
     --portfolio-accent: #7c3aed;
     --portfolio-accent-hover: #6d28d9;
-    --portfolio-border: rgba(0, 0, 0, 0.1);
-    --portfolio-card-bg: rgba(255, 255, 255, 0.6);
-    --portfolio-card-border: rgba(0, 0, 0, 0.05);
+    --portfolio-border: rgba(0, 0, 0, 0.08);
+    --portfolio-card-bg: rgba(255, 255, 255, 0.5);
+    --portfolio-card-border: rgba(0, 0, 0, 0.06);
   }
 
   /* DARK THEME */
@@ -124,7 +124,7 @@
 
   /* Cards */
   .portfolio-card {
-    @apply p-6 rounded-2xl border backdrop-blur-sm space-y-4;
+    @apply p-6 rounded-2xl border backdrop-blur-sm space-y-2;
     background-color: var(--portfolio-card-bg);
     border-color: var(--portfolio-card-border);
   }

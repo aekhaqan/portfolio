@@ -381,7 +381,7 @@ export default function FindMyNumberGame() {
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-6 py-6">
+    <section className="w-full mx-auto py-6">
       <div className="relative bg-secondary/70 border border-custom backdrop-blur-md rounded-3xl p-5 sm:p-8 md:p-10 shadow-glass">
         {/* Top Section - Title and Mode Buttons */}
         {/* Top Section - Title and Mode Buttons */}

@@ -219,10 +219,10 @@ export default function Home() {
       </div>
 
       <div className="portfolio-content">
-        {/* ---------------- HERO ---------------- */}
+        {/* ---------------- HERO + CERTIFIED + TECHNICAL STACK ---------------- */}
         <section
           data-no-animation
-          className="min-h-[50vh] flex flex-col justify-center space-y-6 items-start"
+          className="flex flex-col space-y-6 items-start py-8"
         >
           {/* NAME */}
           <motion.h1
@@ -251,47 +251,46 @@ export default function Home() {
               and deliver business impact.
             </p>
             <p className="hero-role">AI Automations & BI Consultant</p>
-
-            {/* Certification Badge */}
-            <a
-              href="https://learn.microsoft.com/en-us/users/atifkhan-4617/transcript/dejzji355y46mkq"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-2.5 py-[3px] rounded-md bg-white text-[var(--accent)] text-[11px] md:text-xs font-medium"
-            >
-              <Medal className="h-3.5 w-3.5 text-[var(--accent)]" />
-              <span>Certified</span>
-            </a>
           </motion.div>
-        </section>
 
-        {/* ---------------- AUTOMATION + SKILLS ---------------- */}
-        <section className="grid md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 portfolio-card">
-            <h2 className="portfolio-card-title">Automation Highlights</h2>
-            <ul className="tech-list">
-              {automationExamples.map((example, i) => (
-                <li key={i}>{example}</li>
-              ))}
-            </ul>
-          </div>
+          {/* CERTIFIED BADGE + TECHNICAL STACK GRID */}
+          <div className="grid md:grid-cols-2 gap-6 items-start w-full">
+            {/* LEFT: CERTIFICATION BADGE */}
+            <div className="flex items-start">
+              <a
+                href="https://learn.microsoft.com/en-us/users/atifkhan-4617/transcript/dejzji355y46mkq"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2.5 py-[3px] rounded-md bg-white text-[var(--accent)] text-[13px] font-medium"
+              >
+                <Medal className="h-5 w-5 text-[var(--accent)]" />
+                <span>Certified</span>
+              </a>
+            </div>
 
-          <div className="md:col-span-1 portfolio-card rounded-xl">
-            <h2 className="portfolio-card-title">Skills & Tools</h2>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <div key={skill.name} className="skill-tag">
-                  <span className="skill-icon">{skill.icon}</span>
-                  <span className="skill-name">{skill.name}</span>
-                </div>
-              ))}
+            {/* RIGHT: TECHNICAL STACK */}
+            <div className="portfolio-card">
+              <h2 className="portfolio-card-title">Technical Stack</h2>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill) => (
+                  <div key={skill.name} className="skill-tag">
+                    <span className="skill-icon">{skill.icon}</span>
+                    <span className="skill-name">{skill.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ---------------- SELECTED WORK ---------------- */}
-        <section className="space-y-2">
-          <h2 className="section-title">Selected Work</h2>
+        {/* ---------------- WHAT I DO ---------------- */}
+        <section className="space-y-4">
+          <div className="space-y-2">
+            <h2 className="section-title">What I Build</h2>
+            <p className="section-description">
+              Each project below demonstrates a different approach to solving business problems through data and automation.
+            </p>
+          </div>
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {capabilities.map((cap) => (
@@ -307,11 +306,6 @@ export default function Home() {
               </button>
             ))}
           </div>
-
-          <p className="section-description">
-            These projects showcase different skills and approaches, each chosen
-            for its technical challenge.
-          </p>
         </section>
 
         {/* ---------------- PROJECTS ---------------- */}
@@ -411,6 +405,21 @@ export default function Home() {
                 </Link>
               );
             })}
+          </div>
+        </section>
+
+        {/* ---------------- EXAMPLE AUTOMATIONS ---------------- */}
+        <section className="portfolio-card">
+          <div className="space-y-3">
+            <h2 className="portfolio-card-title">Day-to-Day Automations</h2>
+            <p className="text-sm text-secondary leading-relaxed">
+              Beyond the featured projects, here are real automations I've built to streamline operations:
+            </p>
+            <ul className="tech-list">
+              {automationExamples.map((example, i) => (
+                <li key={i}>{example}</li>
+              ))}
+            </ul>
           </div>
         </section>
 
