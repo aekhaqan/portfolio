@@ -13,7 +13,7 @@ interface GameState {
 
 type GameMode = 'classic' | 'speedrun';
 
-const PHONE_NUMBER = "07488242372";
+const PHONE_NUMBER = "07344602969";
 const MAX_ATTEMPTS_CLASSIC = 15;
 const SPEED_RUN_TIME = 20;
 const AUTO_FLIP_TIME = 10000; // 10 seconds

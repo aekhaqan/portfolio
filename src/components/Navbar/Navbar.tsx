@@ -45,11 +45,11 @@ export default function Navbar() {
         
         {/* Left: Email */}
         <a
-          href="mailto:atifmkhan10@gmail.com"
+          href="mailto:atifmkhan09@gmail.com"
           className="text-sm font-medium hover:underline underline-offset-4 
           text-neutral-700 dark:text-neutral-300"
         >
-          atifmkhan10@gmail.com
+          atifmkhan09@gmail.com
         </a>
 
         {/* Center: Menu */}
@@ -101,11 +101,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between px-6 h-14">
           
           <a
-            href="mailto:atifmkhan10@gmail.com"
+            href="mailto:atifmkhan09@gmail.com"
             className="text-xs font-medium hover:underline underline-offset-4 
             text-neutral-700 dark:text-neutral-300"
           >
-            atifmkhan10@gmail.com
+            atifmkhan09@gmail.com
           </a>
 
           <button

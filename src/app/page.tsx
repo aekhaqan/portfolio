@@ -250,7 +250,7 @@ export default function Home() {
               I build intelligent systems that automate decisions 
               and deliver business impact.
             </p>
-            <p className="hero-role">AI Automations & BI Consultant</p>
+            <p className="hero-role">Consultant & AI Automations</p>
           </motion.div>
 
           {/* CERTIFIED BADGE + TECHNICAL STACK GRID */}

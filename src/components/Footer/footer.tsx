@@ -15,10 +15,10 @@ export default function Footer() {
         {/* Contact Links */}
         <div className="flex items-center justify-center gap-6">
           <a
-            href="mailto:atifmkhan10@gmail.com"
+            href="mailto:atifmkhan09@gmail.com"
             className="text-sm text-secondary hover:text-[var(--accent)] transition-colors underline-offset-4 hover:underline"
           >
-            atifmkhan10@gmail.com
+            atifmkhan09@gmail.com
           </a>
 
           <a
