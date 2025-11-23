@@ -17,6 +17,9 @@ import {
   Cloud,
   Cpu,
   Medal,
+  Users,
+  ClipboardList,
+  Settings,
 } from "lucide-react";
 import ContactForm from "@/components/Form/form";
 import FindMyNumberGame from "@/components/Game/Game";
@@ -31,10 +34,23 @@ const TechIcon = ({ name }: { name: string }) => {
     Azure: <Zap className="h-4 w-4" />,
     "Machine Learning": <Cpu className="h-4 w-4" />,
     "Power Platform": <Workflow className="h-4 w-4" />,
+    "Power Apps": <Settings className="h-4 w-4" />,
+    "Power Automate": <Zap className="h-4 w-4" />,
+    "Dynamics 365": <Database className="h-4 w-4" />,
     SharePoint: <FileText className="h-4 w-4" />,
     React: <Code className="h-4 w-4" />,
     "Copilot Studio": <Brain className="h-4 w-4" />,
     ETL: <Database className="h-4 w-4" />,
+    Dataverse: <Database className="h-4 w-4" />,
+    "GPT-4": <Brain className="h-4 w-4" />,
+    "AI Agent": <Brain className="h-4 w-4" />,
+    "Low-Code": <Workflow className="h-4 w-4" />,
+    "Data Modeling": <Database className="h-4 w-4" />,
+    DAX: <BarChart3 className="h-4 w-4" />,
+    "Business Intelligence": <BarChart3 className="h-4 w-4" />,
+    "Next.js": <Code className="h-4 w-4" />,
+    "Tailwind CSS": <Code className="h-4 w-4" />,
+    "Framer Motion": <Code className="h-4 w-4" />,
   };
   return icons[name] || <Zap className="h-4 w-4" />;
 };
@@ -49,6 +65,7 @@ export default function Home() {
   const typingSpeed = 100;
 
   const projectsRef = useRef<HTMLDivElement>(null);
+  const processRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<HTMLDivElement>(null);
 
   // Typewriter name animation
@@ -71,13 +88,19 @@ export default function Home() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // ---------------- CAPABILITIES ----------------
+  // ---------------- CAPABILITIES (REORDERED) ----------------
   const capabilities = [
     {
-      id: "etl",
-      icon: <Database className="h-5 w-5" />,
-      title: "ETL Pipelines",
-      desc: "Fabric Dataflows, Power Query transformations, data modeling",
+      id: "ai",
+      icon: <Brain className="h-5 w-5" />,
+      title: "AI Automation",
+      desc: "GPT-4 integration, Copilot design, intelligent workflows",
+    },
+    {
+      id: "powerautomate",
+      icon: <Zap className="h-5 w-5" />,
+      title: "Power Automate",
+      desc: "Cloud flows, Dataverse triggers, SharePoint integration",
     },
     {
       id: "bi",
@@ -86,16 +109,10 @@ export default function Home() {
       desc: "DAX measures, star schema design, interactive dashboards",
     },
     {
-      id: "ai",
-      icon: <Brain className="h-5 w-5" />,
-      title: "AI Automation",
-      desc: "GPT-4 integration, Copilot design, intelligent workflows",
-    },
-    {
-      id: "lowcode",
-      icon: <Workflow className="h-5 w-5" />,
-      title: "Low-Code Automation",
-      desc: "Power Automate, Dataverse, SharePoint integration",
+      id: "etl",
+      icon: <Database className="h-5 w-5" />,
+      title: "ETL Pipelines",
+      desc: "Fabric Dataflows, Power Query transformations, data modeling",
     },
     {
       id: "custom",
@@ -105,21 +122,25 @@ export default function Home() {
     },
   ];
 
-  // ---------------- SKILLS ----------------
+  // ---------------- SKILLS (UPDATED WITH D365, POWER APPS, POWER AUTOMATE) ----------------
   const skills = [
+    { name: "Dynamics 365", icon: <Database className="h-5 w-5" /> },
+    { name: "Power Apps", icon: <Settings className="h-5 w-5" /> },
+    { name: "Power Automate", icon: <Zap className="h-5 w-5" /> },
     { name: "Power BI", icon: <BarChart3 className="h-5 w-5" /> },
+    { name: "Copilot Studio", icon: <Brain className="h-5 w-5" /> },
     { name: "Microsoft Fabric", icon: <Cloud className="h-5 w-5" /> },
-    { name: "Python", icon: <Code className="h-5 w-5" /> },
-    { name: "SQL", icon: <Server className="h-5 w-5" /> },
+    { name: "Dataverse", icon: <Database className="h-5 w-5" /> },
+    { name: "SharePoint", icon: <FileText className="h-5 w-5" /> },
     { name: "Azure", icon: <Cloud className="h-5 w-5" /> },
     { name: "Machine Learning", icon: <Cpu className="h-5 w-5" /> },
-    { name: "Power Platform", icon: <Workflow className="h-5 w-5" /> },
-    { name: "SharePoint", icon: <FileText className="h-5 w-5" /> },
+    { name: "Python", icon: <Code className="h-5 w-5" /> },
+    { name: "SQL", icon: <Server className="h-5 w-5" /> },
     { name: "React", icon: <Code className="h-5 w-5" /> },
-    { name: "Copilot Studio", icon: <Brain className="h-5 w-5" /> },
-    { name: "ETL", icon: <Database className="h-5 w-5 opacity-60" /> },
+    { name: "ETL", icon: <Database className="h-5 w-5" /> },
   ];
 
+  // ---------------- DAY-TO-DAY AUTOMATIONS ----------------
   const automationExamples = [
     "SharePoint capacity monitoring with automated alerts",
     "Intelligent support ticket routing using priority and category detection",
@@ -129,8 +150,56 @@ export default function Home() {
     "Dynamic project status tracking in Dataverse with Teams notifications",
   ];
 
+  // ---------------- PROCESS & CONSULTING (NEW SECTION) ----------------
+  const processItems = [
+    {
+      number: 1,
+      icon: <Users className="h-5 w-5" />,
+      title: "Stakeholder Discovery",
+      desc: "Workshops and interviews to understand pain points, current processes, and success criteria",
+    },
+    {
+      number: 2,
+      icon: <ClipboardList className="h-5 w-5" />,
+      title: "Requirements Analysis",
+      desc: "Translating business needs into functional specifications and solution architecture",
+    },
+    {
+      number: 3,
+      icon: <Settings className="h-5 w-5" />,
+      title: "Solution Design",
+      desc: "Model-driven apps, canvas apps, business process flows, and Dataverse schema design",
+    },
+    {
+      number: 4,
+      icon: <Workflow className="h-5 w-5" />,
+      title: "Build & Iterate",
+      desc: "Agile delivery with regular demos, feedback cycles, and continuous refinement",
+    },
+  ];
+
   // ---------------- PROJECTS ----------------
   const projects = [
+    {
+      id: "ai-automation",
+      category: "ai",
+      title: "AI Resource Allocation System",
+      description:
+        "Intelligent automation that matches project needs with the right people for resource optimisation, and proactive workload monitoring.",
+      image: "/ai-automation.png",
+      tags: ["GPT-4", "Power Automate", "AI Agent"],
+      gradientClass: "project-gradient-orange",
+    },
+    {
+      id: "lowcode",
+      category: "powerautomate",
+      title: "Procurement Automation",
+      description:
+        "Dynamic approval routing with real-time budget tracking. Approval times reduced from 7 days to 1–2 days.",
+      image: "/lowcode.png",
+      tags: ["Power Automate", "Dataverse", "SharePoint"],
+      gradientClass: "project-gradient-green",
+    },
     {
       id: "ecommerce-etl",
       category: "etl",
@@ -152,28 +221,8 @@ export default function Home() {
       gradientClass: "project-gradient-purple",
     },
     {
-      id: "ai-automation",
-      category: "ai",
-      title: "AI Resource Allocation System",
-      description:
-        "Intelligent automation that matches project needs with the right people for resource optimisation, and proactive workload monitoring.",
-      image: "/ai-automation.png",
-      tags: ["GPT-4", "Power Automate", "AI Agent"],
-      gradientClass: "project-gradient-orange",
-    },
-    {
-      id: "lowcode",
-      category: "lowcode",
-      title: "Procurement Automation",
-      description:
-        "Dynamic approval routing with real-time budget tracking. Approval times reduced from 7 days to 1–2 days.",
-      image: "/lowcode.png",
-      tags: ["Power Automate", "Dataverse", "Low-Code"],
-      gradientClass: "project-gradient-green",
-    },
-    {
       id: "game",
-      category: "game",
+      category: "custom",
       title: "This Portfolio & The Game Below",
       description:
         "This Next.js website you're viewing right now, plus the fun little number game below. Built with modern React patterns and smooth animations.",
@@ -247,15 +296,15 @@ export default function Home() {
             className="space-y-2"
           >
             <p className="hero-subtitle max-w-xl">
-              I build intelligent systems that automate decisions 
-              and deliver business impact.
+              I build intelligent systems that automate decisions and deliver
+              business impact.
             </p>
             <p className="hero-role">Consultant & AI Automations</p>
           </motion.div>
 
-          {/* CERTIFIED BADGE + TECHNICAL STACK GRID */}
-          <div className="grid md:grid-cols-2 gap-6 items-start w-full">
-            {/* LEFT: CERTIFICATION BADGE */}
+          {/* CERTIFIED BADGE + TECHNICAL STACK */}
+          <div className="flex flex-col gap-6 w-full">
+            {/* CERTIFICATION BADGE */}
             <div className="flex items-start">
               <a
                 href="https://learn.microsoft.com/en-us/users/atifkhan-4617/transcript/dejzji355y46mkq"
@@ -268,27 +317,30 @@ export default function Home() {
               </a>
             </div>
 
-            {/* RIGHT: TECHNICAL STACK */}
-            <div className="portfolio-card">
-              <h2 className="portfolio-card-title">Technical Stack</h2>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <div key={skill.name} className="skill-tag">
-                    <span className="skill-icon">{skill.icon}</span>
-                    <span className="skill-name">{skill.name}</span>
-                  </div>
-                ))}
+            {/* TECHNICAL STACK - ALIGNED RIGHT */}
+            <div className="flex justify-end">
+              <div className="portfolio-card w-full md:w-3/4 lg:w-2/3">
+                <h2 className="portfolio-card-title">Technical Stack</h2>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <div key={skill.name} className="skill-tag">
+                      <span className="skill-icon">{skill.icon}</span>
+                      <span className="skill-name">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ---------------- WHAT I DO ---------------- */}
+        {/* ---------------- WHAT I BUILD ---------------- */}
         <section className="space-y-4">
           <div className="space-y-2">
             <h2 className="section-title">What I Build</h2>
             <p className="section-description">
-              Each project below demonstrates a different approach to solving business problems through data and automation.
+              Each project below demonstrates a different approach to solving
+              business problems through data and automation.
             </p>
           </div>
 
@@ -297,8 +349,9 @@ export default function Home() {
               <button
                 key={cap.id}
                 onClick={() => handleCapabilityClick(cap.id)}
-                className={`capability-btn ${selectedWork === cap.id ? "active" : ""
-                  }`}
+                className={`capability-btn ${
+                  selectedWork === cap.id ? "active" : ""
+                }`}
               >
                 <div className="capability-icon">{cap.icon}</div>
                 <h3 className="capability-title">{cap.title}</h3>
@@ -309,19 +362,24 @@ export default function Home() {
         </section>
 
         {/* ---------------- PROJECTS ---------------- */}
-        <section id="projects" ref={projectsRef} className="space-y-0 scroll-mt-24">
+        <section
+          id="projects"
+          ref={projectsRef}
+          className="space-y-0 scroll-mt-24"
+        >
           <div className="grid gap-6">
             {filteredProjects.map((project) => {
               const isGameProject = project.id === "game";
 
               const CardInner = (
                 <>
-                  <div className={`project-gradient ${project.gradientClass}`} />
+                  <div
+                    className={`project-gradient ${project.gradientClass}`}
+                  />
 
                   <div className="project-content relative flex flex-col md:flex-row overflow-hidden rounded-xl shadow-glass">
                     {/* -------- TEXT SIDE -------- */}
                     <div className="flex flex-col justify-start flex-1 p-3 md:p-4 space-y-6">
-
                       <h3 className="project-title text-xl md:text-3xl text-primary leading-snug">
                         {project.title}
                       </h3>
@@ -408,18 +466,43 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------------- EXAMPLE AUTOMATIONS ---------------- */}
+        {/* ---------------- DAY-TO-DAY AUTOMATIONS ---------------- */}
         <section className="portfolio-card">
           <div className="space-y-3">
             <h2 className="portfolio-card-title">Day-to-Day Automations</h2>
             <p className="text-sm text-secondary leading-relaxed">
-              Beyond the featured projects, here are real automations I've built to streamline operations:
+              Beyond the featured projects, here are real automations I've built
+              to streamline operations:
             </p>
             <ul className="tech-list">
               {automationExamples.map((example, i) => (
                 <li key={i}>{example}</li>
               ))}
             </ul>
+          </div>
+        </section>
+
+        {/* ---------------- PROCESS & CONSULTING (NEW SECTION) ---------------- */}
+        <section id="process" ref={processRef} className="space-y-6 scroll-mt-24">
+          <div className="space-y-2">
+            <h2 className="section-title">Process & Consulting</h2>
+            <p className="section-description">
+              From discovery to delivery — how I approach Dynamics 365 and Power
+              Platform implementations.
+            </p>
+          </div>
+
+          {/* METHODOLOGY CARDS */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {processItems.map((item) => (
+              <div key={item.number} className="portfolio-card p-4 space-y-3">
+                <span className="text-4xl font-bold text-[var(--portfolio-accent)]">
+                  {item.number}
+                </span>
+                <h3 className="capability-title">{item.title}</h3>
+                <p className="capability-desc">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </section>
 

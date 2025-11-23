@@ -23,10 +23,18 @@ export default function Navbar() {
 
   const scrollTo = (id: string) => {
     if (pathname === "/") {
+      // Already on home page, just scroll
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     } else {
-      router.push(`/#${id}`);
+      // On a different page, navigate to home first then scroll
+      // Use replace to avoid the hash showing oddly in URL
+      router.push("/");
+      // Wait for navigation then scroll
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
   };
 
@@ -43,22 +51,30 @@ export default function Navbar() {
       {/* DESKTOP */}
       <div className="hidden md:flex max-w-7xl mx-auto px-6 h-16 items-center justify-between">
         
-        {/* Left: Email */}
-        <a
-          href="mailto:atifmkhan09@gmail.com"
-          className="text-sm font-medium hover:underline underline-offset-4 
-          text-neutral-700 dark:text-neutral-300"
-        >
-          atifmkhan09@gmail.com
-        </a>
+        {/* Left: Email - fixed width */}
+        <div className="w-48">
+          <a
+            href="mailto:atifmkhan09@gmail.com"
+            className="text-sm font-medium hover:underline underline-offset-4 
+            text-neutral-700 dark:text-neutral-300"
+          >
+            atifmkhan09@gmail.com
+          </a>
+        </div>
 
-        {/* Center: Menu */}
+        {/* Center: Menu - truly centered */}
         <div className="flex items-center gap-8">
           <button
             onClick={() => scrollTo("projects")}
             className="text-sm font-semibold hover:opacity-80"
           >
             Projects
+          </button>
+          <button
+            onClick={() => scrollTo("process")}
+            className="text-sm font-semibold hover:opacity-80"
+          >
+            Process
           </button>
           <button
             onClick={() => scrollTo("contact")}
@@ -68,24 +84,26 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Right: Theme Toggle */}
-        <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="relative w-12 h-6 rounded-full bg-black/10 dark:bg-white/10 
-          border border-black/20 dark:border-white/20 transition-colors"
-        >
-          <div
-            className={`absolute w-4 h-4 rounded-full bg-black dark:bg-white 
-            transition-transform duration-300 top-1
-            ${theme === "dark" ? "translate-x-7" : "translate-x-1"}`}
+        {/* Right: Theme Toggle - fixed width to match left */}
+        <div className="w-48 flex justify-end">
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="relative w-12 h-6 rounded-full bg-black/10 dark:bg-white/10 
+            border border-black/20 dark:border-white/20 transition-colors"
           >
-            <Lightbulb
-              className={`h-3 w-3 absolute top-0.5 left-0.5 
-              ${theme === "dark" ? "text-yellow-400" : "text-white"}`}
-              fill={theme === "dark" ? "currentColor" : "none"}
-            />
-          </div>
-        </button>
+            <div
+              className={`absolute w-4 h-4 rounded-full bg-black dark:bg-white 
+              transition-transform duration-300 top-1
+              ${theme === "dark" ? "translate-x-7" : "translate-x-1"}`}
+            >
+              <Lightbulb
+                className={`h-3 w-3 absolute top-0.5 left-0.5 
+                ${theme === "dark" ? "text-yellow-400" : "text-white"}`}
+                fill={theme === "dark" ? "currentColor" : "none"}
+              />
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* MOBILE */}
@@ -128,9 +146,9 @@ export default function Navbar() {
 
         </div>
 
-        {/* Row 2 (Projects + Contact) */}
+        {/* Row 2 (Projects + Process + Contact) */}
         <div className="
-          flex items-center justify-center gap-10 py-3 
+          flex items-center justify-center gap-8 py-3 
           border-t border-black/10 dark:border-white/10
         ">
           <button
@@ -138,6 +156,12 @@ export default function Navbar() {
             className="text-sm font-semibold hover:opacity-80"
           >
             Projects
+          </button>
+          <button
+            onClick={() => scrollTo("process")}
+            className="text-sm font-semibold hover:opacity-80"
+          >
+            Process
           </button>
           <button
             onClick={() => scrollTo("contact")}
